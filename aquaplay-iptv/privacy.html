@@ -51,7 +51,7 @@
 <main>
 
   <h1>Privacy Policy</h1>
-  <p class="sub">AquaPlay IPTV · last updated 13 September 2026</p>
+  <p class="sub">AquaPlay IPTV · last updated 14 September 2026</p>
 
   <div class="lead">
     <p><strong>AquaPlay does not collect, transmit or store any personal information about you.</strong> There are no accounts, no sign-up, no analytics, no advertising, no tracking and no third-party SDKs of any kind.</p>
@@ -73,11 +73,12 @@
   <p>If your playlist supplies channel logos or a programme guide hosted elsewhere, your device fetches those directly from whichever servers your provider points at. Those servers will see your IP address, as with any request your device makes.</p>
 
   <h2>Adding a playlist from your phone</h2>
-  <p>On a television you can add a playlist by scanning a code with your phone and typing it there instead of with the remote. How it reaches the TV depends on the set:</p>
+  <p>On a television you can add a playlist by scanning a code with your phone and typing it there instead of with the remote. It reaches the TV in one of two ways:</p>
   <ul>
-    <li><strong>Android TV</strong> — while that screen is open, the TV accepts it directly over your own Wi-Fi. It does not leave your home network, and the TV stops listening as soon as it arrives, after fifteen minutes, or when you leave the screen.</li>
-    <li><strong>Samsung</strong> — the phone opens a page at <code>dolev24.github.io</code>, which GitHub serves and so receives your phone's IP address. The code on the TV carries a one-time key your phone uses to encrypt the playlist before sending it through <code>ntfy.sh</code>, a public relay. The key is never sent anywhere, so neither GitHub nor the relay can read what you sent; the relay only ever holds the encrypted message.</li>
+    <li><strong>Through a relay, encrypted</strong> (the code on Samsung and Android TV) — the phone opens a page at <code>dolev24.github.io</code>, which GitHub serves and so receives your phone's IP address. The code on the TV carries a one-time key your phone uses to encrypt the playlist before sending it through <code>ntfy.sh</code>, a public relay, which is how it works from mobile data or any network. The key is never sent anywhere, so neither GitHub nor the relay can read what you sent; the relay only ever holds the encrypted message.</li>
+    <li><strong>Directly over your Wi-Fi</strong> (Android TV) — the TV also shows its own address on your home network, which a phone on the same Wi-Fi can open instead. Sent that way, the playlist does not leave your home network. If the relay cannot be reached, the code itself becomes this address.</li>
   </ul>
+  <p>On Android TV the TV stops listening both ways as soon as a playlist arrives, after fifteen minutes, or when you leave the screen.</p>
   <p>AquaPlay does not check for updates or contact any other server.</p>
 
   <h2>Permissions</h2>
