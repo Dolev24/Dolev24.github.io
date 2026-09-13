@@ -10,20 +10,15 @@
 <!-- pair.html — the page a phone opens from the QR code on the television.
 
      The viewer types or pastes their playlist here, on a keyboard made for
-     it, and it is sent to the set. Two ways, told apart by the address:
-
-       http://<address on the home network>/p/<token>
-         served by the app itself on an Android set. The playlist goes
-         straight back to the address it came from, on the viewer's own
-         Wi-Fi, and nowhere else.
+     it, and it is sent to the set, from whatever network the phone is on:
 
        https://…/pair.html#r=<channel>.<key>
-         for a Samsung set, which may not run a server. The playlist is
-         locked on this phone with AES-GCM and a key the television made and
-         put in the code, then handed to a public relay (ntfy.sh), which only
-         ever holds the locked form. The key is after the #, and a browser
-         never sends that part of an address to anyone — not to the relay,
-         and not to whoever serves this page.
+
+     The playlist is locked on this phone with AES-GCM and a key the
+     television made and put in the code, then handed to a public relay
+     (ntfy.sh), which only ever holds the locked form. The key is after the #,
+     and a browser never sends that part of an address to anyone — not to the
+     relay, and not to whoever serves this page.
 
      Self-contained: no script, style, font or image from anywhere — the logo
      is inside the page — so nothing this page does depends on, or is seen
@@ -128,22 +123,20 @@
     user: 'Username', pass: 'Password', name: 'Playlist name', send: 'Send to TV',
     sending: 'Sending…', sent: 'Sent. Look at your TV.', dead: 'Open this page by scanning the code on your TV.',
     needUrl: 'Enter the playlist URL.', badUrl: 'The address must start with http:// or https://',
-    needXt: 'Enter the server, the username and the password.', gone: 'This code has expired. Open the phone option on your TV again for a new one.',
-    failed: 'Could not send. Check that your phone is on the same Wi-Fi as the TV and try again.',
+    needXt: 'Enter the server, the username and the password.',
     relayFail: 'Could not send. Check your phone’s internet connection and try again.',
-    noteLan: 'The playlist goes straight to your TV over your own Wi-Fi.',
     noteRelay: 'The playlist is locked on this phone before it is sent, and only your TV can unlock it.'
   };
   var LANG = {
-    es: { title: 'Envía una lista a tu TV', sub: 'Introduce los datos que te dio tu proveedor de IPTV.', url: 'URL de la lista', epg: 'URL de la guía (EPG)', optional: 'opcional', host: 'URL del servidor', user: 'Usuario', pass: 'Contraseña', name: 'Nombre de la lista', send: 'Enviar a la TV', sending: 'Enviando…', sent: 'Enviado. Mira tu TV.', dead: 'Abre esta página escaneando el código de tu TV.', needUrl: 'Introduce la URL de la lista.', badUrl: 'La dirección debe empezar por http:// o https://', needXt: 'Introduce el servidor, el usuario y la contraseña.', gone: 'Este código ha caducado. Vuelve a abrir la opción del teléfono en la TV.', failed: 'No se pudo enviar. Comprueba que el teléfono está en la misma Wi-Fi que la TV.', relayFail: 'No se pudo enviar. Comprueba la conexión a internet del teléfono.', noteLan: 'La lista va directa a tu TV por tu propia Wi-Fi.', noteRelay: 'La lista se cifra en este teléfono antes de enviarse y solo tu TV puede descifrarla.' },
-    fr: { title: 'Envoyer une playlist à votre TV', sub: 'Saisissez les informations fournies par votre fournisseur IPTV.', url: 'URL de la playlist', epg: 'URL du guide (EPG)', optional: 'facultatif', host: 'URL du serveur', user: 'Nom d’utilisateur', pass: 'Mot de passe', name: 'Nom de la playlist', send: 'Envoyer à la TV', sending: 'Envoi…', sent: 'Envoyé. Regardez votre TV.', dead: 'Ouvrez cette page en scannant le code affiché sur votre TV.', needUrl: 'Saisissez l’URL de la playlist.', badUrl: 'L’adresse doit commencer par http:// ou https://', needXt: 'Saisissez le serveur, le nom d’utilisateur et le mot de passe.', gone: 'Ce code a expiré. Rouvrez l’option téléphone sur la TV.', failed: 'Envoi impossible. Vérifiez que le téléphone est sur le même Wi-Fi que la TV.', relayFail: 'Envoi impossible. Vérifiez la connexion internet du téléphone.', noteLan: 'La playlist va directement à votre TV par votre propre Wi-Fi.', noteRelay: 'La playlist est chiffrée sur ce téléphone avant l’envoi, et seule votre TV peut la déchiffrer.' },
-    de: { title: 'Playlist an den Fernseher senden', sub: 'Gib die Daten ein, die du von deinem IPTV-Anbieter bekommen hast.', url: 'Playlist-URL', epg: 'Programmführer-URL (EPG)', optional: 'optional', host: 'Server-URL', user: 'Benutzername', pass: 'Passwort', name: 'Name der Playlist', send: 'An den Fernseher senden', sending: 'Wird gesendet…', sent: 'Gesendet. Schau auf deinen Fernseher.', dead: 'Öffne diese Seite, indem du den Code auf dem Fernseher scannst.', needUrl: 'Gib die Playlist-URL ein.', badUrl: 'Die Adresse muss mit http:// oder https:// beginnen.', needXt: 'Gib Server, Benutzername und Passwort ein.', gone: 'Dieser Code ist abgelaufen. Öffne die Telefon-Option am Fernseher erneut.', failed: 'Senden fehlgeschlagen. Ist das Telefon im selben WLAN wie der Fernseher?', relayFail: 'Senden fehlgeschlagen. Prüfe die Internetverbindung des Telefons.', noteLan: 'Die Playlist geht direkt über dein eigenes WLAN an den Fernseher.', noteRelay: 'Die Playlist wird auf diesem Telefon verschlüsselt, und nur dein Fernseher kann sie entschlüsseln.' },
-    pt: { title: 'Envie uma lista para a sua TV', sub: 'Introduza os dados fornecidos pelo seu fornecedor de IPTV.', url: 'URL da lista', epg: 'URL do guia (EPG)', optional: 'opcional', host: 'URL do servidor', user: 'Utilizador', pass: 'Palavra-passe', name: 'Nome da lista', send: 'Enviar para a TV', sending: 'A enviar…', sent: 'Enviado. Veja a sua TV.', dead: 'Abra esta página lendo o código na sua TV.', needUrl: 'Introduza o URL da lista.', badUrl: 'O endereço tem de começar por http:// ou https://', needXt: 'Introduza o servidor, o utilizador e a palavra-passe.', gone: 'Este código expirou. Abra de novo a opção do telemóvel na TV.', failed: 'Não foi possível enviar. Confirme que o telemóvel está na mesma Wi-Fi que a TV.', relayFail: 'Não foi possível enviar. Verifique a ligação à internet do telemóvel.', noteLan: 'A lista vai diretamente para a sua TV pela sua própria Wi-Fi.', noteRelay: 'A lista é cifrada neste telemóvel antes de ser enviada e só a sua TV a pode decifrar.' },
-    it: { title: 'Invia una playlist alla TV', sub: 'Inserisci i dati forniti dal tuo provider IPTV.', url: 'URL della playlist', epg: 'URL della guida (EPG)', optional: 'facoltativo', host: 'URL del server', user: 'Nome utente', pass: 'Password', name: 'Nome della playlist', send: 'Invia alla TV', sending: 'Invio…', sent: 'Inviata. Guarda la TV.', dead: 'Apri questa pagina inquadrando il codice sulla TV.', needUrl: 'Inserisci l’URL della playlist.', badUrl: 'L’indirizzo deve iniziare con http:// o https://', needXt: 'Inserisci server, nome utente e password.', gone: 'Questo codice è scaduto. Riapri l’opzione telefono sulla TV.', failed: 'Invio non riuscito. Controlla che il telefono sia sulla stessa Wi-Fi della TV.', relayFail: 'Invio non riuscito. Controlla la connessione internet del telefono.', noteLan: 'La playlist arriva direttamente alla TV tramite la tua Wi-Fi.', noteRelay: 'La playlist viene cifrata su questo telefono prima dell’invio e solo la tua TV può decifrarla.' },
-    ru: { title: 'Отправить плейлист на телевизор', sub: 'Введите данные, которые дал ваш IPTV-провайдер.', url: 'Адрес плейлиста', epg: 'Адрес телегида (EPG)', optional: 'необязательно', host: 'Адрес сервера', user: 'Имя пользователя', pass: 'Пароль', name: 'Название плейлиста', send: 'Отправить на ТВ', sending: 'Отправка…', sent: 'Отправлено. Посмотрите на телевизор.', dead: 'Откройте эту страницу, отсканировав код на телевизоре.', needUrl: 'Введите адрес плейлиста.', badUrl: 'Адрес должен начинаться с http:// или https://', needXt: 'Введите сервер, имя пользователя и пароль.', gone: 'Срок действия кода истёк. Откройте вариант с телефоном на телевизоре ещё раз.', failed: 'Не удалось отправить. Проверьте, что телефон в той же сети Wi-Fi, что и телевизор.', relayFail: 'Не удалось отправить. Проверьте интернет на телефоне.', noteLan: 'Плейлист передаётся на телевизор напрямую через вашу Wi-Fi.', noteRelay: 'Плейлист шифруется на этом телефоне, и расшифровать его может только ваш телевизор.' },
-    hi: { title: 'अपने टीवी पर प्लेलिस्ट भेजें', sub: 'अपने IPTV प्रदाता से मिली जानकारी दर्ज करें।', url: 'प्लेलिस्ट URL', epg: 'गाइड (EPG) URL', optional: 'वैकल्पिक', host: 'सर्वर URL', user: 'उपयोगकर्ता नाम', pass: 'पासवर्ड', name: 'प्लेलिस्ट का नाम', send: 'टीवी पर भेजें', sending: 'भेजा जा रहा है…', sent: 'भेज दिया। अपना टीवी देखें।', dead: 'अपने टीवी पर दिखे कोड को स्कैन करके यह पेज खोलें।', needUrl: 'प्लेलिस्ट URL दर्ज करें।', badUrl: 'पता http:// या https:// से शुरू होना चाहिए', needXt: 'सर्वर, उपयोगकर्ता नाम और पासवर्ड दर्ज करें।', gone: 'यह कोड समाप्त हो गया है। टीवी पर फ़ोन वाला विकल्प फिर से खोलें।', failed: 'भेजा नहीं जा सका। देखें कि फ़ोन और टीवी एक ही वाई-फ़ाई पर हैं।', relayFail: 'भेजा नहीं जा सका। फ़ोन का इंटरनेट कनेक्शन जाँचें।', noteLan: 'प्लेलिस्ट आपके अपने वाई-फ़ाई से सीधे टीवी पर जाती है।', noteRelay: 'प्लेलिस्ट भेजने से पहले इसी फ़ोन पर लॉक की जाती है, और केवल आपका टीवी इसे खोल सकता है।' },
-    ja: { title: 'テレビにプレイリストを送る', sub: 'IPTV プロバイダーから受け取った情報を入力してください。', url: 'プレイリストの URL', epg: '番組表 (EPG) の URL', optional: '任意', host: 'サーバー URL', user: 'ユーザー名', pass: 'パスワード', name: 'プレイリスト名', send: 'テレビに送る', sending: '送信中…', sent: '送信しました。テレビを見てください。', dead: 'テレビに表示されたコードを読み取ってこのページを開いてください。', needUrl: 'プレイリストの URL を入力してください。', badUrl: 'アドレスは http:// か https:// で始まる必要があります', needXt: 'サーバー、ユーザー名、パスワードを入力してください。', gone: 'このコードは期限切れです。テレビでスマートフォンの項目をもう一度開いてください。', failed: '送信できませんでした。スマートフォンとテレビが同じ Wi-Fi にあるか確認してください。', relayFail: '送信できませんでした。スマートフォンのインターネット接続を確認してください。', noteLan: 'プレイリストはご自宅の Wi-Fi でテレビに直接届きます。', noteRelay: 'プレイリストはこのスマートフォンで暗号化してから送られ、テレビだけが復号できます。' },
-    ko: { title: 'TV로 재생목록 보내기', sub: 'IPTV 제공업체에서 받은 정보를 입력하세요.', url: '재생목록 URL', epg: '편성표(EPG) URL', optional: '선택', host: '서버 URL', user: '사용자 이름', pass: '비밀번호', name: '재생목록 이름', send: 'TV로 보내기', sending: '보내는 중…', sent: '보냈습니다. TV를 확인하세요.', dead: 'TV에 표시된 코드를 스캔해 이 페이지를 여세요.', needUrl: '재생목록 URL을 입력하세요.', badUrl: '주소는 http:// 또는 https://로 시작해야 합니다', needXt: '서버, 사용자 이름, 비밀번호를 입력하세요.', gone: '이 코드는 만료되었습니다. TV에서 휴대폰 옵션을 다시 여세요.', failed: '보내지 못했습니다. 휴대폰이 TV와 같은 Wi-Fi에 있는지 확인하세요.', relayFail: '보내지 못했습니다. 휴대폰의 인터넷 연결을 확인하세요.', noteLan: '재생목록은 집 Wi-Fi를 통해 TV로 바로 전송됩니다.', noteRelay: '재생목록은 이 휴대폰에서 암호화된 뒤 전송되며 TV만 해독할 수 있습니다.' }
+    es: { title: 'Envía una lista a tu TV', sub: 'Introduce los datos que te dio tu proveedor de IPTV.', url: 'URL de la lista', epg: 'URL de la guía (EPG)', optional: 'opcional', host: 'URL del servidor', user: 'Usuario', pass: 'Contraseña', name: 'Nombre de la lista', send: 'Enviar a la TV', sending: 'Enviando…', sent: 'Enviado. Mira tu TV.', dead: 'Abre esta página escaneando el código de tu TV.', needUrl: 'Introduce la URL de la lista.', badUrl: 'La dirección debe empezar por http:// o https://', needXt: 'Introduce el servidor, el usuario y la contraseña.', relayFail: 'No se pudo enviar. Comprueba la conexión a internet del teléfono.', noteRelay: 'La lista se cifra en este teléfono antes de enviarse y solo tu TV puede descifrarla.' },
+    fr: { title: 'Envoyer une playlist à votre TV', sub: 'Saisissez les informations fournies par votre fournisseur IPTV.', url: 'URL de la playlist', epg: 'URL du guide (EPG)', optional: 'facultatif', host: 'URL du serveur', user: 'Nom d’utilisateur', pass: 'Mot de passe', name: 'Nom de la playlist', send: 'Envoyer à la TV', sending: 'Envoi…', sent: 'Envoyé. Regardez votre TV.', dead: 'Ouvrez cette page en scannant le code affiché sur votre TV.', needUrl: 'Saisissez l’URL de la playlist.', badUrl: 'L’adresse doit commencer par http:// ou https://', needXt: 'Saisissez le serveur, le nom d’utilisateur et le mot de passe.', relayFail: 'Envoi impossible. Vérifiez la connexion internet du téléphone.', noteRelay: 'La playlist est chiffrée sur ce téléphone avant l’envoi, et seule votre TV peut la déchiffrer.' },
+    de: { title: 'Playlist an den Fernseher senden', sub: 'Gib die Daten ein, die du von deinem IPTV-Anbieter bekommen hast.', url: 'Playlist-URL', epg: 'Programmführer-URL (EPG)', optional: 'optional', host: 'Server-URL', user: 'Benutzername', pass: 'Passwort', name: 'Name der Playlist', send: 'An den Fernseher senden', sending: 'Wird gesendet…', sent: 'Gesendet. Schau auf deinen Fernseher.', dead: 'Öffne diese Seite, indem du den Code auf dem Fernseher scannst.', needUrl: 'Gib die Playlist-URL ein.', badUrl: 'Die Adresse muss mit http:// oder https:// beginnen.', needXt: 'Gib Server, Benutzername und Passwort ein.', relayFail: 'Senden fehlgeschlagen. Prüfe die Internetverbindung des Telefons.', noteRelay: 'Die Playlist wird auf diesem Telefon verschlüsselt, und nur dein Fernseher kann sie entschlüsseln.' },
+    pt: { title: 'Envie uma lista para a sua TV', sub: 'Introduza os dados fornecidos pelo seu fornecedor de IPTV.', url: 'URL da lista', epg: 'URL do guia (EPG)', optional: 'opcional', host: 'URL do servidor', user: 'Utilizador', pass: 'Palavra-passe', name: 'Nome da lista', send: 'Enviar para a TV', sending: 'A enviar…', sent: 'Enviado. Veja a sua TV.', dead: 'Abra esta página lendo o código na sua TV.', needUrl: 'Introduza o URL da lista.', badUrl: 'O endereço tem de começar por http:// ou https://', needXt: 'Introduza o servidor, o utilizador e a palavra-passe.', relayFail: 'Não foi possível enviar. Verifique a ligação à internet do telemóvel.', noteRelay: 'A lista é cifrada neste telemóvel antes de ser enviada e só a sua TV a pode decifrar.' },
+    it: { title: 'Invia una playlist alla TV', sub: 'Inserisci i dati forniti dal tuo provider IPTV.', url: 'URL della playlist', epg: 'URL della guida (EPG)', optional: 'facoltativo', host: 'URL del server', user: 'Nome utente', pass: 'Password', name: 'Nome della playlist', send: 'Invia alla TV', sending: 'Invio…', sent: 'Inviata. Guarda la TV.', dead: 'Apri questa pagina inquadrando il codice sulla TV.', needUrl: 'Inserisci l’URL della playlist.', badUrl: 'L’indirizzo deve iniziare con http:// o https://', needXt: 'Inserisci server, nome utente e password.', relayFail: 'Invio non riuscito. Controlla la connessione internet del telefono.', noteRelay: 'La playlist viene cifrata su questo telefono prima dell’invio e solo la tua TV può decifrarla.' },
+    ru: { title: 'Отправить плейлист на телевизор', sub: 'Введите данные, которые дал ваш IPTV-провайдер.', url: 'Адрес плейлиста', epg: 'Адрес телегида (EPG)', optional: 'необязательно', host: 'Адрес сервера', user: 'Имя пользователя', pass: 'Пароль', name: 'Название плейлиста', send: 'Отправить на ТВ', sending: 'Отправка…', sent: 'Отправлено. Посмотрите на телевизор.', dead: 'Откройте эту страницу, отсканировав код на телевизоре.', needUrl: 'Введите адрес плейлиста.', badUrl: 'Адрес должен начинаться с http:// или https://', needXt: 'Введите сервер, имя пользователя и пароль.', relayFail: 'Не удалось отправить. Проверьте интернет на телефоне.', noteRelay: 'Плейлист шифруется на этом телефоне, и расшифровать его может только ваш телевизор.' },
+    hi: { title: 'अपने टीवी पर प्लेलिस्ट भेजें', sub: 'अपने IPTV प्रदाता से मिली जानकारी दर्ज करें।', url: 'प्लेलिस्ट URL', epg: 'गाइड (EPG) URL', optional: 'वैकल्पिक', host: 'सर्वर URL', user: 'उपयोगकर्ता नाम', pass: 'पासवर्ड', name: 'प्लेलिस्ट का नाम', send: 'टीवी पर भेजें', sending: 'भेजा जा रहा है…', sent: 'भेज दिया। अपना टीवी देखें।', dead: 'अपने टीवी पर दिखे कोड को स्कैन करके यह पेज खोलें।', needUrl: 'प्लेलिस्ट URL दर्ज करें।', badUrl: 'पता http:// या https:// से शुरू होना चाहिए', needXt: 'सर्वर, उपयोगकर्ता नाम और पासवर्ड दर्ज करें।', relayFail: 'भेजा नहीं जा सका। फ़ोन का इंटरनेट कनेक्शन जाँचें।', noteRelay: 'प्लेलिस्ट भेजने से पहले इसी फ़ोन पर लॉक की जाती है, और केवल आपका टीवी इसे खोल सकता है।' },
+    ja: { title: 'テレビにプレイリストを送る', sub: 'IPTV プロバイダーから受け取った情報を入力してください。', url: 'プレイリストの URL', epg: '番組表 (EPG) の URL', optional: '任意', host: 'サーバー URL', user: 'ユーザー名', pass: 'パスワード', name: 'プレイリスト名', send: 'テレビに送る', sending: '送信中…', sent: '送信しました。テレビを見てください。', dead: 'テレビに表示されたコードを読み取ってこのページを開いてください。', needUrl: 'プレイリストの URL を入力してください。', badUrl: 'アドレスは http:// か https:// で始まる必要があります', needXt: 'サーバー、ユーザー名、パスワードを入力してください。', relayFail: '送信できませんでした。スマートフォンのインターネット接続を確認してください。', noteRelay: 'プレイリストはこのスマートフォンで暗号化してから送られ、テレビだけが復号できます。' },
+    ko: { title: 'TV로 재생목록 보내기', sub: 'IPTV 제공업체에서 받은 정보를 입력하세요.', url: '재생목록 URL', epg: '편성표(EPG) URL', optional: '선택', host: '서버 URL', user: '사용자 이름', pass: '비밀번호', name: '재생목록 이름', send: 'TV로 보내기', sending: '보내는 중…', sent: '보냈습니다. TV를 확인하세요.', dead: 'TV에 표시된 코드를 스캔해 이 페이지를 여세요.', needUrl: '재생목록 URL을 입력하세요.', badUrl: '주소는 http:// 또는 https://로 시작해야 합니다', needXt: '서버, 사용자 이름, 비밀번호를 입력하세요.', relayFail: '보내지 못했습니다. 휴대폰의 인터넷 연결을 확인하세요.', noteRelay: '재생목록은 이 휴대폰에서 암호화된 뒤 전송되며 TV만 해독할 수 있습니다.' }
   };
   var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en']);
   for (var li = 0; li < langs.length; li++) {
@@ -161,13 +154,12 @@
 
   /* ---- which way this page was opened ---- */
   var relay = /[#&]r=([A-Za-z0-9_-]{16,64})\.([A-Za-z0-9_-]{43})(?:&|$)/.exec(location.hash);
-  var lan = !relay && /^\/p\/([A-Za-z0-9_-]{16,64})\/?$/.exec(location.pathname);
-  if (!relay && !lan) { $('dead').hidden = false; $('t-sub').hidden = true; return; }
+  if (!relay) { $('dead').hidden = false; $('t-sub').hidden = true; return; }
   $('form').hidden = false;
-  put('note', relay ? 'noteRelay' : 'noteLan');
+  put('note', 'noteRelay');
   /* The key has done its job once it is in memory; the address bar and the
      history do not need to keep it. */
-  if (relay && history.replaceState) { try { history.replaceState(null, '', location.pathname); } catch (e) {} }
+  if (history.replaceState) { try { history.replaceState(null, '', location.pathname); } catch (e) {} }
 
   var type = 'm3u';
   function setType(t) {
@@ -226,19 +218,11 @@
   }
 
   function send(obj) {
-    if (relay) {
-      return lock(obj, relay[2]).then(function (body) {
-        return fetch(RELAY + relay[1], { method: 'POST', body: body, cache: 'no-store', referrerPolicy: 'no-referrer' });
-      }).then(function (r) {
-        if (!r.ok) throw new Error(WORDS.relayFail);
-      }, function () { throw new Error(WORDS.relayFail); });
-    }
-    return fetch(location.pathname, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(obj), cache: 'no-store'
+    return lock(obj, relay[2]).then(function (body) {
+      return fetch(RELAY + relay[1], { method: 'POST', body: body, cache: 'no-store', referrerPolicy: 'no-referrer' });
     }).then(function (r) {
-      if (r.status === 404 || r.status === 410) throw new Error(WORDS.gone);
-      if (!r.ok) throw new Error(WORDS.failed);
-    }, function () { throw new Error(WORDS.failed); });
+      if (!r.ok) throw new Error(WORDS.relayFail);
+    }, function () { throw new Error(WORDS.relayFail); });
   }
 
   $('form').onsubmit = function (ev) {
@@ -252,7 +236,7 @@
       msg(WORDS.sent, true);
       put('send', 'send');
     }, function (err) {
-      msg(err && err.message ? err.message : WORDS.failed);
+      msg(err && err.message ? err.message : WORDS.relayFail);
       $('send').disabled = false;
       put('send', 'send');
     });
