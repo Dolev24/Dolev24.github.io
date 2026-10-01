@@ -55,7 +55,7 @@
 
   <div class="lead">
     <p><strong>AquaPlay has no accounts, no sign-up, no analytics, no advertising and no tracking.</strong> It contains no analytics or advertising SDKs; the Android app uses Google Play's billing library, to sell Premium.</p>
-    <p>What you put into the app stays on your device. The exceptions are the ones you choose: buying Premium — through Google Play on Android TV, or on the AquaPlay licence website for a Samsung TV — and using your phone to send things to the TV. Each is described below.</p>
+    <p>What you put into the app stays on your device. The exceptions are the ones you choose: buying Premium through Google Play on Android TV, and using your phone to send things to the TV. Each is described below. On a Samsung TV, AquaPlay is free and has nothing to buy.</p>
   </div>
 
   <h2>What the app stores, and where</h2>
@@ -67,7 +67,8 @@
     <li>your preferences: language, theme, text size, picture size, buffer settings, reminders, the parental PIN and channel locks</li>
     <li>where you stopped in a film or episode, so you can continue from there</li>
     <li>recordings, if you make them: on Android TV in the app's own storage on the device, and on a PC in the folder you choose</li>
-    <li>your Premium status: when a free trial started, whether Premium was bought, and on a Samsung TV the licence the AquaPlay licence website signed for it</li>
+    <li>on Android TV, your Premium status: when a free trial started, and whether Premium was bought</li>
+    <li>on a Samsung TV, the number of days the app has been opened, and whether it has already asked you, once, about a donation — so it never asks again</li>
   </ul>
   <p>None of this is sent to us. There is no account and no remote backup of your data, so we cannot see it, and cannot recover it for you if it is lost.</p>
 
@@ -80,16 +81,9 @@
   <p>On a television you can use your phone to add a playlist, to send your playlists and settings to another TV, to save a backup file, and to restore one. Scanning the code on the TV opens a page at <code>aquaplayiptv.github.io</code> (<code>dolev24.github.io</code> for versions before 1.0.30), which GitHub serves and so receives your phone's IP address. The code carries a one-time key that encrypts what is sent before it travels through <code>ntfy.sh</code>, a public relay, which is how it works whatever network your phone is on. The key is never sent anywhere, so neither GitHub nor the relay can read what you sent; the relay only ever holds the encrypted message. This is the same on Samsung and Android TV.</p>
   <p>A backup file holds your playlist details, passwords included, and is saved wherever you choose on your phone or PC. Keep it private.</p>
 
-  <h2>Buying Premium</h2>
+  <h2>Premium, and donations</h2>
   <p><strong>On Android TV</strong>, Premium is bought through Google Play, and Google handles the payment under its own privacy policy. The app asks Google Play which AquaPlay purchases your Google account holds, so Premium can be turned on. We do not receive your name, your email address or any payment details. Promo codes are redeemed in Google Play.</p>
-  <p><strong>On a Samsung TV</strong>, Premium is bought on the AquaPlay licence website, <code>aquaplay.aquaplay-licence.workers.dev</code>, which we run on Cloudflare. The TV makes a Device ID and a Device key from its own identifier, which it reads with Samsung's product-information permission, and shows them to you. The TV never sends the identifier or the Device key: it sends the Device ID and a check made from the key, and the website makes the same check from the key you type, in your browser. The TV contacts the website only after you choose Buy Premium on it, and from then on checks its licence from time to time. The website keeps:</p>
-  <ul>
-    <li>the TV's Device ID, the check made from its key, whether it is a Samsung or Android TV, the AquaPlay version, when it last checked in, and its plan</li>
-    <li>for each payment: PayPal's order number, the plan, the amount and the email address you paid with. Card details go to PayPal and never reach us.</li>
-    <li>playlists you save on the website, encrypted in your browser before they are sent, so we store them without being able to read them</li>
-    <li>a short history for each TV (bought, redeemed, moved), for answering questions about it</li>
-  </ul>
-  <p>To limit repeated attempts, the website counts requests from each IP address for up to an hour. PayPal handles payments, and Cloudflare hosts the website, each under its own privacy policy. The website's own privacy page has the same details.</p>
+  <p><strong>On a Samsung TV</strong>, AquaPlay is free, with nothing to buy. Settings has a <em>Support AquaPlay</em> page showing a code that opens AquaPlay's page on Ko-fi on your phone, where you can leave a donation if you want to. The TV itself never contacts Ko-fi. A donation is handled by Ko-fi and its payment providers under their own privacy policies, and we see only what Ko-fi shows any creator about a supporter.</p>
   <p>On a PC there is nothing to buy.</p>
   <p>AquaPlay does not check for updates, and contacts no servers other than the ones described on this page.</p>
 
@@ -103,7 +97,7 @@
     <li><strong>Exact alarms and start at boot</strong> — so a scheduled recording starts on time, even after the TV has been restarted</li>
     <li><strong>Google Play billing</strong> — to buy Premium</li>
   </ul>
-  <p>On a Samsung TV, besides the permissions to use the network, play video and read the remote, the app reads the TV's product information, only to make the Device ID and key described above.</p>
+  <p>On a Samsung TV, the app uses only the permissions to use the network, play video, and read the remote.</p>
   <p>AquaPlay does not request access to your location, contacts, camera, microphone, files outside its own storage, or accounts, and does not use the advertising identifier.</p>
 
   <h2>Children</h2>
@@ -111,7 +105,7 @@
 
   <h2>Removing your data</h2>
   <p>You remove everything stored on the device by clearing the app's data or uninstalling the app; on Android TV that includes recordings in the app's storage. On Android TV that is <strong>Settings → Apps → AquaPlay → Clear data</strong>. Within the app, removing a playlist deletes its stored credentials immediately. Recordings made on a PC stay in the folder you chose until you delete them.</p>
-  <p>Premium bought through Google Play belongs to your Google account; you manage or cancel a subscription in Google Play, under <strong>Payments &amp; subscriptions</strong>. For a Samsung TV, write to us with its Device ID and we will delete what the licence website holds for that TV. You can remove playlists saved on the website yourself, on its Playlists page.</p>
+  <p>Premium bought through Google Play belongs to your Google account; you manage or cancel a subscription in Google Play, under <strong>Payments &amp; subscriptions</strong>.</p>
 
   <h2>Changes to this policy</h2>
   <p>If this policy changes, the updated version will appear at this address with a new date at the top.</p>
