@@ -51,7 +51,7 @@
 <main>
 
   <h1>Privacy Policy</h1>
-  <p class="sub">AquaPlay IPTV · last updated 3 October 2026</p>
+  <p class="sub">AquaPlay IPTV · last updated 6 October 2026</p>
 
   <div class="lead">
     <p><strong>AquaPlay has no accounts, no sign-up, no analytics, no advertising and no tracking.</strong> It contains no analytics or advertising SDKs; the Android app uses Google Play's billing library, to sell Premium.</p>
@@ -70,6 +70,7 @@
     <li>on Android TV, your Premium status: when a free trial started, and whether Premium was bought</li>
     <li>on a Samsung TV, the number of days the app has been opened, and when it last asked you about a donation — so it asks no more than once every two weeks</li>
     <li>on a Samsung TV, the newest version of AquaPlay it has heard of, and which one it last told you about</li>
+    <li>a crash report: what the app was doing in the minutes before it last closed unexpectedly — the screen, the kind of stream that was playing, memory use, errors, the settings that affect playback, and the TV's model and software version. It never holds your playlist address, your account, or channel and programme names</li>
   </ul>
   <p>None of this is sent to us. There is no account and no remote backup of your data, so we cannot see it, and cannot recover it for you if it is lost.</p>
 
@@ -81,6 +82,7 @@
   <h2>Using your phone with the TV</h2>
   <p>On a television you can use your phone to add a playlist, to send your playlists and settings to another TV, to save a backup file, and to restore one. Scanning the code on the TV opens a page at <code>aquaplayiptv.github.io</code> (<code>dolev24.github.io</code> for versions before 1.0.30), which GitHub serves and so receives your phone's IP address. The code carries a one-time key that encrypts what is sent before it travels through <code>ntfy.sh</code>, a public relay, which is how it works whatever network your phone is on. The key is never sent anywhere, so neither GitHub nor the relay can read what you sent; the relay only ever holds the encrypted message. This is the same on Samsung and Android TV.</p>
   <p>A backup file holds your playlist details, passwords included, and is saved wherever you choose on your phone or PC. Keep it private.</p>
+  <p>The crash report in <strong>Settings → Advanced → Crash report</strong> has a code too. It opens <code>aquaplayiptv.github.io/report.html</code> with the report in the part of the address after the <code>#</code>, which your phone's browser keeps to itself and does not send to GitHub. The page only shows the report, so you can copy it, share it or email it to us if you choose. Nothing is sent unless you send it.</p>
 
   <h2>Premium, and donations</h2>
   <p><strong>On Android TV</strong>, Premium is bought through Google Play, and Google handles the payment under its own privacy policy. The app asks Google Play which AquaPlay purchases your Google account holds, so Premium can be turned on. We do not receive your name, your email address or any payment details. Promo codes are redeemed in Google Play.</p>
@@ -100,7 +102,7 @@
     <li><strong>Exact alarms and start at boot</strong> — so a scheduled recording starts on time, even after the TV has been restarted</li>
     <li><strong>Google Play billing</strong> — to buy Premium</li>
   </ul>
-  <p>On a Samsung TV, the app uses only the permissions to use the network, play video, and read the remote.</p>
+  <p>On a Samsung TV, the app uses only the permissions to use the network, play video, read the remote, and save a file in its own storage. That file is a channel's list of qualities, for a channel that needs special headers, and it is deleted as soon as it has been read.</p>
   <p>AquaPlay does not request access to your location, contacts, camera, microphone, files outside its own storage, or accounts, and does not use the advertising identifier.</p>
 
   <h2>Children</h2>
