@@ -51,7 +51,7 @@
 <main>
 
   <h1>Privacy Policy</h1>
-  <p class="sub">AquaPlay IPTV · last updated 6 October 2026</p>
+  <p class="sub">AquaPlay IPTV · last updated 12 October 2026</p>
 
   <div class="lead">
     <p><strong>AquaPlay has no accounts, no sign-up, no analytics, no advertising and no tracking.</strong> It contains no analytics or advertising SDKs; the Android app uses Google Play's billing library, to sell Premium.</p>
@@ -65,7 +65,10 @@
     <li>your favourites, recently watched channels, channel numbers you have reassigned, and groups you have hidden</li>
     <li>profiles, if you add them: each one's name, favourites, history and locks</li>
     <li>your preferences: language, theme, text size, picture size, buffer settings, reminders, the parental PIN and channel locks</li>
-    <li>where you stopped in a film or episode, so you can continue from there</li>
+    <li>where you stopped in a film or episode, so you can continue from there; which films and episodes you have watched, and which episode each series is up to</li>
+    <li>the subtitle and soundtrack you chose for a channel, film or series, how far you moved its subtitles, and an intro you marked for a series</li>
+    <li>if you add a playlist from a file, the playlist's contents</li>
+    <li>for a large playlist of films and series, a copy of its list (names, posters, stories and episodes) in the app's own storage, so it opens quickly; it is replaced when the list is read again and removed with the playlist</li>
     <li>recordings, if you make them: on Android TV in the app's own storage on the device, and on a PC in the folder you choose</li>
     <li>on Android TV, your Premium status: when a free trial started, and whether Premium was bought</li>
     <li>on a Samsung TV, the number of days the app has been opened, and when it last asked you about a donation — so it asks no more than once every two weeks</li>
@@ -80,8 +83,8 @@
   <p>If your playlist supplies channel logos or a programme guide hosted elsewhere, your device fetches those directly from whichever servers your provider points at. Those servers will see your IP address, as with any request your device makes.</p>
 
   <h2>Using your phone with the TV</h2>
-  <p>On a television you can use your phone to add a playlist, to send your playlists and settings to another TV, to save a backup file, and to restore one. Scanning the code on the TV opens a page at <code>aquaplayiptv.github.io</code> (<code>dolev24.github.io</code> for versions before 1.0.30), which GitHub serves and so receives your phone's IP address. The code carries a one-time key that encrypts what is sent before it travels through <code>ntfy.sh</code>, a public relay, which is how it works whatever network your phone is on. The key is never sent anywhere, so neither GitHub nor the relay can read what you sent; the relay only ever holds the encrypted message. When a playlist is sent this way, the TV answers the phone through the same relay, locked with the same key: whether it connected, and if not, what went wrong. That answer never contains your username or password. This is the same on Samsung and Android TV.</p>
-  <p>A backup file holds your playlist details, passwords included, and is saved wherever you choose on your phone or PC. Keep it private.</p>
+  <p>On a television you can use your phone to add a playlist, to send your playlists and settings to another TV, to save a backup file, and to restore one. Scanning the code on the TV opens a page at <code>aquaplayiptv.github.io</code> (<code>dolev24.github.io</code> for versions before 1.0.30), which GitHub serves and so receives your phone's IP address. The code carries a one-time key that encrypts what is sent before it travels through <code>ntfy.sh</code>, a public relay, which is how it works whatever network your phone is on. The key is never sent anywhere, so neither GitHub nor the relay can read what you sent; the relay only ever holds the encrypted message. When a playlist is sent this way, the TV answers the phone through the same relay, locked with the same key: whether it connected, and if not, what went wrong. That answer never contains your username or password. A playlist file chosen on the phone travels the same way, encrypted on the phone before it leaves; the relay keeps that encrypted file for up to three hours, then deletes it. This is the same on Samsung and Android TV.</p>
+  <p>A backup file holds your playlist details, passwords included, and is saved wherever you choose on your phone or PC. Keep it private. A backup, and sending to another TV, also carry what you have watched and where you stopped. A playlist added from a file stays on the TV it was added to.</p>
   <p>The crash report in <strong>Settings → Advanced → Crash report</strong> has a code too. It opens <code>aquaplayiptv.github.io/report.html</code> with the report in the part of the address after the <code>#</code>, which your phone's browser keeps to itself and does not send to GitHub. The page only shows the report, so you can copy it, share it or email it to us if you choose. Nothing is sent unless you send it.</p>
 
   <h2>Premium, and donations</h2>
@@ -90,6 +93,9 @@
   <p>On a PC there is nothing to buy.</p>
   <h2>Checking for a newer version</h2>
   <p><strong>On a Samsung TV</strong>, once a day, AquaPlay asks GitHub which version of it is the newest (<code>api.github.com</code>, about the public AquaPlayIPTV/aquaplay-samsung repository), so it can tell you when an update is out. The request carries nothing about you, your playlists or what you watch; GitHub sees your TV's IP address, as any website would, under its own privacy policy. You can turn it off in <strong>Settings → Advanced → Check for new versions</strong>. On Android TV, Google Play takes care of updates, and the app asks nothing.</p>
+
+  <h2>Skipping intros</h2>
+  <p>When you watch an episode of a series, AquaPlay can offer a button to skip its intro or recap, or to go on to the next episode in the credits. The times come from <strong>TheIntroDB</strong> (<code>api.theintrodb.org</code>), a free, community-made database. To ask, the app sends it the series' TMDB number (a public film and TV database's number, from your provider's series information), the season and episode numbers, and the length of the file — nothing about you, your playlist or your provider. TheIntroDB sees your device's IP address, as any website would, under its own privacy policy. Nothing is asked for live channels or films. You can turn this off in <strong>Settings → Playback → Skip intros</strong>.</p>
   <p>AquaPlay contacts no servers other than the ones described on this page.</p>
 
   <h2>Permissions</h2>
@@ -103,7 +109,8 @@
     <li><strong>Google Play billing</strong> — to buy Premium</li>
   </ul>
   <p>On a Samsung TV, the app uses only the permissions to use the network, play video, read the remote, and save a file in its own storage. That file is a channel's list of qualities, for a channel that needs special headers, and it is deleted as soon as it has been read.</p>
-  <p>AquaPlay does not request access to your location, contacts, camera, microphone, files outside its own storage, or accounts, and does not use the advertising identifier.</p>
+  <p>When you add a playlist from a file, AquaPlay reads that file and nothing else: on a Samsung TV it looks for playlist files on a USB stick plugged into the TV and reads the one you choose; on Android TV the system's own file chooser hands over only the file you pick.</p>
+  <p>AquaPlay does not request access to your location, contacts, camera, microphone or accounts, reads no file you did not choose, and does not use the advertising identifier.</p>
 
   <h2>Children</h2>
   <p>AquaPlay is a general-purpose media player and is not directed at children. It does not knowingly collect information from anyone, of any age. The channels available in it are determined entirely by the playlist you supply; the app includes a parental PIN and channel locks.</p>
