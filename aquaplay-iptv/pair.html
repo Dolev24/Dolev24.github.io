@@ -162,32 +162,32 @@
 
     <div id="f-m3u">
       <label><span id="t-url">Playlist URL</span>
-        <input type="url" id="m-url" inputmode="url" autocapitalize="off" spellcheck="false"></label>
+        <input type="url" id="m-url" inputmode="url" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off"></label>
       <!-- Or the playlist's file, from this phone: uploaded to the relay as a
            file of its own, locked like everything else (sendFile, below). -->
       <label class="file-pick"><span id="t-file">Or a playlist file from this phone</span>
         <input type="file" id="m-file"></label>
       <p class="note file-note" id="file-note" hidden></p>
       <label><span><span id="t-epg">Guide (EPG) URL</span> <em id="t-opt1">optional</em></span>
-        <input type="url" id="m-epg" inputmode="url" autocapitalize="off" spellcheck="false"></label>
+        <input type="url" id="m-epg" inputmode="url" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off"></label>
     </div>
 
     <div id="f-xtream" hidden>
       <label><span id="t-host">Server URL</span>
-        <input type="url" id="x-host" inputmode="url" autocapitalize="off" spellcheck="false"></label>
+        <input type="url" id="x-host" inputmode="url" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off"></label>
       <label><span id="t-user">Username</span>
-        <input type="text" id="x-user" autocapitalize="off" spellcheck="false"></label>
+        <input type="text" id="x-user" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off"></label>
       <label><span id="t-pass">Password</span>
-        <input type="text" id="x-pass" autocapitalize="off" spellcheck="false"></label>
+        <input type="text" id="x-pass" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off"></label>
     </div>
 
     <!-- A MAG portal and the MAC it knows (P4, 25 Oct 2026): the TV checks
          them with the portal, as its own MAG form does (stalker.js). -->
     <div id="f-mag" hidden>
       <label><span id="t-portal">Portal address</span>
-        <input type="url" id="g-portal" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="http://portal.example:8080/c/"></label>
+        <input type="url" id="g-portal" inputmode="url" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off" placeholder="http://portal.example:8080/c/"></label>
       <label><span id="t-mac">MAC address</span>
-        <input type="text" id="g-mac" dir="ltr" autocapitalize="characters" spellcheck="false" placeholder="00:1A:79:00:00:00"></label>
+        <input type="text" id="g-mac" dir="ltr" autocapitalize="characters" spellcheck="false" autocorrect="off" autocomplete="off" placeholder="00:1A:79:00:00:00"></label>
       <p class="note" id="mag-old" hidden></p>
     </div>
 
@@ -836,26 +836,31 @@
     var box = $(id);
     box.addEventListener('paste', function (ev) {
       var data = ev.clipboardData || window.clipboardData;
-      var raw = data && data.getData ? data.getData('text') : '';
+      var raw = '';
+      try { raw = (data && data.getData) ? (data.getData('text/plain') || data.getData('text')) : ''; } catch (e) {}
       if (!raw) return;
       var out = cleanPaste(id, raw);
-      if (out.fill) {
-        ev.preventDefault();
-        if (out.fill.host) $('x-host').value = out.fill.host;
-        if (out.fill.user) $('x-user').value = out.fill.user;
-        if (out.fill.pass) $('x-pass').value = out.fill.pass;
-        return;
-      }
-      if (out.value === raw) return;
-      ev.preventDefault();
-      /* Where the cursor is, as a paste would; a url box cannot say where
-         that is, and takes the whole value. */
-      try {
-        var a = box.selectionStart, b = box.selectionEnd;
-        if (typeof a !== 'number') throw 0;
-        box.value = box.value.slice(0, a) + out.value + box.value.slice(b);
-        box.setSelectionRange(a + out.value.length, a + out.value.length);
-      } catch (e) { box.value = out.value; }
+      if (!out.fill && out.value === raw) return;
+      /* The browser pastes as it always does, and what it put in is tidied
+         just after (26 Oct 2026: on an iPhone, Safari pasted as well as the
+         page, so text that was never copied showed up). What was in the box
+         around the paste is kept as it was. */
+      var before = box.value, a = null, b = null;
+      try { a = box.selectionStart; b = box.selectionEnd; } catch (e) {}
+      setTimeout(function () {
+        if (out.fill) {
+          box.value = before;
+          if (out.fill.host) $('x-host').value = out.fill.host;
+          if (out.fill.user) $('x-user').value = out.fill.user;
+          if (out.fill.pass) $('x-pass').value = out.fill.pass;
+          if (id === 'x-host' || id === 'x-user' || id === 'x-pass') return;
+        }
+        var v = out.fill ? '' : out.value;
+        if (typeof a === 'number' && typeof b === 'number' && before) {
+          box.value = before.slice(0, a) + v + before.slice(b);
+          try { box.setSelectionRange(a + v.length, a + v.length); } catch (e) {}
+        } else box.value = v;
+      }, 0);
     }, false);
   });
 
