@@ -818,8 +818,12 @@
       return { value: unquote(h || list[0]) };
     }
     if (id === 'g-portal') {
-      var pu = firstUrl(all);
-      return { value: pu || unquote(labelled(list).host || list[0]) };
+      var pu = firstUrl(all) || unquote(labelled(list).host || list[0]);
+      /* A portal's address ends at its /c/: anything run on after it (26 Oct
+         2026: a paste brought the page's own words with it, "MAC address…",
+         with no space between) is not part of it. */
+      var cut = /^(.*?\/c\/)/i.exec(pu);
+      return { value: cut ? cut[1] : pu };
     }
     if (id === 'g-mac') {
       var mm = /([0-9a-f]{2}[:\-]){5}[0-9a-f]{2}/i.exec(all);
