@@ -188,6 +188,7 @@
         <input type="url" id="g-portal" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="http://portal.example:8080/c/"></label>
       <label><span id="t-mac">MAC address</span>
         <input type="text" id="g-mac" dir="ltr" autocapitalize="characters" spellcheck="false" placeholder="00:1A:79:00:00:00"></label>
+      <p class="note" id="mag-old" hidden></p>
     </div>
 
     <label><span><span id="t-name">Playlist name</span> <em id="t-opt2">optional</em></span>
@@ -217,6 +218,7 @@
     needXt: 'Enter the server, the username and the password.',
     magTab: 'MAG portal', portal: 'Portal address', mac: 'MAC address',
     needMag: 'Enter the portal address and the MAC address (six pairs, like 00:1A:79:12:34:56).',
+    magOld: 'MAG portals need AquaPlay 1.0.51 or newer on your TV.',
     relayFail: 'Could not send. Check your phone’s internet connection and try again.',
     waitTv: 'Sent. Waiting for your TV to connect…', another: 'Add another playlist', tvOk: 'Your TV connected: {name}. Enjoy!', tvFail: 'Your TV could not connect', helpShot: 'If you ask for help, send a screenshot of this:', again: 'To try again: fix it here, open “From your phone” on the TV again, and scan the new code.',
     noteRelay: 'The playlist is locked on this phone before it is sent, and only your TV can unlock it.',
@@ -273,6 +275,8 @@
     "zh":{"magTab":"MAG 门户","portal":"门户地址","mac":"MAC 地址","needMag":"请输入门户地址和 MAC 地址（六组，例如 00:1A:79:12:34:56）。"},
     "tr":{"magTab":"MAG portalı","portal":"Portal adresi","mac":"MAC adresi","needMag":"Portal adresini ve MAC adresini girin (altı çift, örneğin 00:1A:79:12:34:56)."},
     "fi":{"magTab":"MAG-portaali","portal":"Portaalin osoite","mac":"MAC-osoite","needMag":"Kirjoita portaalin osoite ja MAC-osoite (kuusi paria, kuten 00:1A:79:12:34:56)."}};
+  var MAGOLD = {"es":"Los portales MAG necesitan AquaPlay 1.0.51 o posterior en tu TV.","fr":"Les portails MAG nécessitent AquaPlay 1.0.51 ou plus récent sur votre TV.","de":"MAG-Portale brauchen AquaPlay 1.0.51 oder neuer auf deinem Fernseher.","pt":"Os portais MAG precisam do AquaPlay 1.0.51 ou mais recente na sua TV.","it":"I portali MAG richiedono AquaPlay 1.0.51 o successivo sulla TV.","pl":"Portale MAG wymagają AquaPlay 1.0.51 lub nowszego na telewizorze.","ru":"Для порталов MAG на телевизоре нужен AquaPlay 1.0.51 или новее.","hi":"MAG पोर्टल के लिए आपके टीवी पर AquaPlay 1.0.51 या नया होना चाहिए।","ja":"MAG ポータルにはテレビの AquaPlay 1.0.51 以降が必要です。","ko":"MAG 포털을 쓰려면 TV에 AquaPlay 1.0.51 이상이 필요합니다.","he":"פורטלים של MAG דורשים AquaPlay 1.0.51 ומעלה בטלוויזיה.","ar":"تحتاج بوابات MAG إلى AquaPlay 1.0.51 أو أحدث على تلفازك.","zh":"MAG 门户需要电视上的 AquaPlay 1.0.51 或更新版本。","tr":"MAG portalları için TV'nizde AquaPlay 1.0.51 veya üstü gerekir.","fi":"MAG-portaalit vaativat televisioon AquaPlay 1.0.51:n tai uudemman."};
+  for (var mo in MAGOLD) if (MAGW[mo]) MAGW[mo].magOld = MAGOLD[mo];
   for (var mc in MAGW) if (LANG[mc]) for (var mk in MAGW[mc]) LANG[mc][mk] = MAGW[mc][mk];
   var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en']);
   for (var li = 0; li < langs.length; li++) {
@@ -711,8 +715,10 @@
      then, and only then, another can follow from here. An older TV would
      never answer a second one. */
   var more = /[#&]m=1(?:&|$)/.test(location.hash);
-  /* The MAG tab only for a TV that opens MAG portals (&g=1, 1.0.51). */
-  $('tab-mag').hidden = !/[#&]g=1(?:&|$)/.test(location.hash);
+  /* The MAG tab always (26 Oct 2026: a code opened without its flags hid
+     it). A TV that has not said it opens MAG portals (&g=1, 1.0.51) may be
+     an older one: the tab says what it needs, and sends all the same. */
+  if (!/[#&]g=1(?:&|$)/.test(location.hash)) { $('mag-old').textContent = WORDS.magOld; $('mag-old').hidden = false; }
   put('another', 'another');
   $('form').hidden = false;
   put('note', 'noteRelay');
