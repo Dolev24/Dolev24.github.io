@@ -413,7 +413,7 @@
      Only a code that is this page's, carrying a television's #b=, #x= or #r=,
      is taken, and only its part after the '#' — which this page then reads
      as if it had been opened with it (the hashchange above starts it over). */
-  var OUR_CODE = /^https:\/\/(?:aquaplayiptv\.github\.io\/|dolev24\.github\.io\/aquaplay-iptv\/pair\.html)(#(?:b|x|r|s)=[A-Za-z0-9_-]{16,64}\.[A-Za-z0-9_-]{43}(?:&[a-z]=1)*)$/i;
+  var OUR_CODE = /^https:\/\/(?:aquaplayiptv\.github\.io\/|dolev24\.github\.io\/aquaplay-iptv\/pair\.html)(?:\?v=[0-9A-Za-z.-]{1,20})?(#(?:b|x|r|s)=[A-Za-z0-9_-]{16,64}\.[A-Za-z0-9_-]{43}(?:&[a-z]=1)*)$/i;
   var scanStream = null, scanTimer = null;
 
   function offerScan(labelKey) {
