@@ -157,6 +157,7 @@
     <div class="tabs" role="tablist">
       <button type="button" role="tab" id="tab-m3u" aria-selected="true">M3U</button>
       <button type="button" role="tab" id="tab-xtream" aria-selected="false">Xtream Codes</button>
+      <button type="button" role="tab" id="tab-mag" aria-selected="false">MAG</button>
     </div>
 
     <div id="f-m3u">
@@ -178,6 +179,15 @@
         <input type="text" id="x-user" autocapitalize="off" spellcheck="false"></label>
       <label><span id="t-pass">Password</span>
         <input type="text" id="x-pass" autocapitalize="off" spellcheck="false"></label>
+    </div>
+
+    <!-- A MAG portal and the MAC it knows (P4, 25 Oct 2026): the TV checks
+         them with the portal, as its own MAG form does (stalker.js). -->
+    <div id="f-mag" hidden>
+      <label><span id="t-portal">Portal address</span>
+        <input type="url" id="g-portal" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="http://portal.example:8080/c/"></label>
+      <label><span id="t-mac">MAC address</span>
+        <input type="text" id="g-mac" dir="ltr" autocapitalize="characters" spellcheck="false" placeholder="00:1A:79:00:00:00"></label>
     </div>
 
     <label><span><span id="t-name">Playlist name</span> <em id="t-opt2">optional</em></span>
@@ -205,6 +215,8 @@
     sending: 'Sending…', sent: 'Sent. Look at your TV.', dead: 'Open this page by scanning the code on your TV.',
     needUrl: 'Enter the playlist URL.', badUrl: 'The address must start with http:// or https://',
     needXt: 'Enter the server, the username and the password.',
+    magTab: 'MAG portal', portal: 'Portal address', mac: 'MAC address',
+    needMag: 'Enter the portal address and the MAC address (six pairs, like 00:1A:79:12:34:56).',
     relayFail: 'Could not send. Check your phone’s internet connection and try again.',
     waitTv: 'Sent. Waiting for your TV to connect…', another: 'Add another playlist', tvOk: 'Your TV connected: {name}. Enjoy!', tvFail: 'Your TV could not connect', helpShot: 'If you ask for help, send a screenshot of this:', again: 'To try again: fix it here, open “From your phone” on the TV again, and scan the new code.',
     noteRelay: 'The playlist is locked on this phone before it is sent, and only your TV can unlock it.',
@@ -245,6 +257,23 @@
     tr: {title: "TV'nize oynatma listesi gönderin",url: "Oynatma listesi URL'si",epg: "Rehber (EPG) URL'si",optional: "isteğe bağlı",host: "Sunucu URL'si",user: "Kullanıcı adı",pass: "Şifre",name: "Oynatma listesi adı",send: "TV'ye gönder",sending: "Gönderiliyor…",sent: "Gönderildi. TV'nizi kontrol edin.",dead: "TV'nizdeki kare kodu tarayarak bu sayfayı açın.",needUrl: "Oynatma listesi URL'sini girin.",badUrl: "Adres http:// veya https:// ile başlamalıdır.",needXt: "Sunucuyu, kullanıcı adını ve şifreyi girin.",relayFail: "Gönderilemedi. Telefonunuzun internet bağlantısını kontrol edin ve tekrar deneyin.",waitTv: "Gönderildi. TV'nizin bağlanması bekleniyor…",another: "Başka bir oynatma listesi ekle",tvOk: "TV'niz bağlandı: {name}. Keyfini çıkarın!",tvFail: "TV'niz bağlantı kuramadı",helpShot: "Yardım istemeniz gerekirse, bunun bir ekran görüntüsünü gönderin:",again: "Tekrar denemek için: burada düzeltin, TV'de “Telefonunuzdan” bölümünü yeniden açın ve yeni kodu tarayın.",noteRelay: "Oynatma listesi, gönderilmeden önce bu telefonda kilitlenir ve kilidi yalnızca TV'niz açabilir.",backupTitle: "TV'nizdeki oynatma listeleri",backupWaiting: "TV'nizden gönderilen veriler alınıyor…",backupGot: "Tamam. Diğer TV'nizde “Başka bir TV'den” bölümünü açın ve kodunu bu telefonla tarayın.",backupNote: "Başka hiçbir yere kaydedilmemiştir; lütfen en kısa sürede bu işlemi tamamlayın.",backupNotFound: "Hiçbir şey bulunamadı. TV'nizde işlemi yeni başlattığınızdan emin olun ve ardından TV'deki kodu tekrar tarayın.",sendTitle: "Bu TV'ye gönder",sendNothing: "Henüz gönderilecek bir şey yok. İlk TV'nize dönün, “Başka bir TV'ye gönder” bölümünü açın ve önce kodunu bu telefonla tarayın.",sendConfirm: "Bunu TV'ye göndermek istiyor musunuz?",sendBtn: "Gönder",scanTv: "TV'nizdeki kodu tarayın",scanNext: "Diğer TV'nin kodunu tarayın",scanFirst: "İlk TV'nizin kodunu tarayın",scanHint: "Kamerayı TV'deki koda doğrultun.",scanCancel: "İptal",scanNotOurs: "Bu, AquaPlay'e ait bir kod değil.",scanNoCamera: "Burada kamera açılamadı. Bunun yerine, telefonunuzun kendi kamera uygulamasını kullanarak kodu tarayın.",scanCameraApp: "Kamera uygulamanızı açın ve TV'deki koda doğrultun.",saveFile: "Yedekleme dosyası kaydet",saveNote: "Veya daha sonra kullanmak üzere dosya olarak saklayın. Oynatma listesi giriş bilgilerinizi içerdiğinden, dosyayı gizli tutun.",saved: "Bu telefona kaydedildi. Geri yüklemek için bir TV'de “Başka bir TV'den” bölümünü açıp dosyayı seçin.",chooseFile: "Yedekleme dosyası seç",orFile: "Veya bu telefona kaydedilmiş bir yedek dosyası seçin.",badFile: "Bu, bir AquaPlay yedekleme dosyası değil.",fileTooBig: "Tek seferde gönderilemeyecek kadar çok. Daha az oynatma listesi içeren bir yedek deneyin.",plFile: "Ya da bu telefondaki bir oynatma listesi dosyası",plFileGot: "{name}: {n} kanal",plFileNot: "Bu dosya bir M3U oynatma listesi değil.",plFileBig: "Bu dosya gönderilemeyecek kadar büyük: sıkıştırıldığında en fazla 15 MB olabilir.", subsTitle: "TV'nize altyazı gönderin", subsChoose: "Altyazı dosyası seçin", subsIntro: "Bu telefonda bir altyazı dosyası (.srt veya .vtt) seçin. Hemen TV'nizde görünür.", subsNote: "Dosya gönderilmeden önce bu telefonda kilitlenir ve yalnızca TV'niz açabilir.", subsNot: "Bu bir altyazı dosyası (.srt veya .vtt) değil.", subsBig: "Dosya altyazı için çok büyük: en fazla 4 MB."},
     fi: {title: "Lähetä soittolista televisioosi",url: "Soittolistan URL",epg: "Ohjelmaoppaan (EPG) URL",optional: "valinnainen",host: "Palvelimen URL",user: "Käyttäjätunnus",pass: "Salasana",name: "Soittolistan nimi",send: "Lähetä televisioon",sending: "Lähetetään…",sent: "Lähetetty. Katso televisiotasi.",dead: "Avaa tämä sivu skannaamalla koodi televisiostasi.",needUrl: "Kirjoita soittolistan URL.",badUrl: "Osoitteen on alettava http:// tai https://",needXt: "Kirjoita palvelin, käyttäjätunnus ja salasana.",relayFail: "Lähetys ei onnistunut. Tarkista puhelimesi internetyhteys ja yritä uudelleen.",waitTv: "Lähetetty. Odotetaan, että televisiosi yhdistää…",another: "Lisää toinen soittolista",tvOk: "Televisiosi yhdisti: {name}. Hyvää katselua!",tvFail: "Televisiosi ei saanut yhteyttä",helpShot: "Jos pyydät apua, lähetä kuvakaappaus tästä:",again: "Yritä uudelleen: korjaa se tässä, avaa televisiossa “Puhelimesta” uudelleen ja skannaa uusi koodi.",noteRelay: "Soittolista lukitaan tässä puhelimessa ennen lähettämistä, ja vain televisiosi voi avata sen.",backupTitle: "Soittolistat televisiostasi",backupWaiting: "Haetaan televisiosi lähettämää…",backupGot: "Selvä. Avaa toisessa televisiossasi “Toisesta televisiosta” ja skannaa sen koodi tällä puhelimella.",backupNote: "Ei tallennettu mihinkään muualle — tee tämä pian.",backupNotFound: "Mitään ei löytynyt. Varmista, että aloitit tämän televisiossa juuri äsken, ja skannaa sen koodi uudelleen.",sendTitle: "Lähetä tähän televisioon",sendNothing: "Ei vielä lähetettävää. Palaa ensimmäiseen televisioosi, avaa “Lähetä toiseen televisioon” ja skannaa sen koodi ensin tällä puhelimella.",sendConfirm: "Lähetetäänkö tämä televisioon?",sendBtn: "Lähetä",scanTv: "Skannaa televisiosi koodi",scanNext: "Skannaa toisen television koodi",scanFirst: "Skannaa ensimmäisen televisiosi koodi",scanHint: "Osoita kameralla television koodia.",scanCancel: "Peruuta",scanNotOurs: "Se ei ole AquaPlayn koodi.",scanNoCamera: "Kameraa ei voitu avata tässä. Skannaa koodi kamerasovelluksellasi sen sijaan.",scanCameraApp: "Avaa kamerasovelluksesi ja osoita sillä television koodia.",saveFile: "Tallenna varmuuskopiotiedosto",saveNote: "Tai säilytä se myöhempää varten tiedostona. Siinä ovat soittolistojesi kirjautumistiedot, joten pidä se yksityisenä.",saved: "Tallennettu tähän puhelimeen. Palauttaaksesi sen avaa televisiossa “Toisesta televisiosta” ja valitse tiedosto.",chooseFile: "Valitse varmuuskopiotiedosto",orFile: "Tai valitse tähän puhelimeen tallennettu varmuuskopiotiedosto.",badFile: "Se ei ole AquaPlayn varmuuskopiotiedosto.",fileTooBig: "Liikaa lähetettäväksi kerralla. Kokeile varmuuskopiota, jossa on vähemmän soittolistoja.",plFile: "Tai soittolistatiedosto tästä puhelimesta",plFileGot: "{name}: {n} kanavaa",plFileNot: "Tiedosto ei ole M3U-soittolista.",plFileBig: "Tiedosto on liian suuri lähetettäväksi: enintään 15 Mt pakattuna.", subsTitle: "Lähetä tekstitys televisioosi", subsChoose: "Valitse tekstitystiedosto", subsIntro: "Valitse tästä puhelimesta tekstitystiedosto (.srt tai .vtt). Se näkyy televisiossa heti.", subsNote: "Tiedosto lukitaan tässä puhelimessa ennen lähettämistä, ja vain televisiosi voi avata sen.", subsNot: "Tämä ei ole tekstitystiedosto (.srt tai .vtt).", subsBig: "Tiedosto on liian suuri tekstitykseksi: enintään 4 Mt."},
   };
+  /* The MAG tab's words (25 Oct 2026), into each language's. */
+  var MAGW = {"es":{"magTab":"Portal MAG","portal":"Dirección del portal","mac":"Dirección MAC","needMag":"Escribe la dirección del portal y la dirección MAC (seis pares, como 00:1A:79:12:34:56)."},
+    "fr":{"magTab":"Portail MAG","portal":"Adresse du portail","mac":"Adresse MAC","needMag":"Saisissez l’adresse du portail et l’adresse MAC (six paires, comme 00:1A:79:12:34:56)."},
+    "de":{"magTab":"MAG-Portal","portal":"Portal-Adresse","mac":"MAC-Adresse","needMag":"Gib die Portal-Adresse und die MAC-Adresse ein (sechs Paare, z. B. 00:1A:79:12:34:56)."},
+    "pt":{"magTab":"Portal MAG","portal":"Endereço do portal","mac":"Endereço MAC","needMag":"Introduza o endereço do portal e o endereço MAC (seis pares, como 00:1A:79:12:34:56)."},
+    "it":{"magTab":"Portale MAG","portal":"Indirizzo del portale","mac":"Indirizzo MAC","needMag":"Inserisci l’indirizzo del portale e l’indirizzo MAC (sei coppie, come 00:1A:79:12:34:56)."},
+    "pl":{"magTab":"Portal MAG","portal":"Adres portalu","mac":"Adres MAC","needMag":"Wpisz adres portalu i adres MAC (sześć par, np. 00:1A:79:12:34:56)."},
+    "ru":{"magTab":"Портал MAG","portal":"Адрес портала","mac":"MAC-адрес","needMag":"Введите адрес портала и MAC-адрес (шесть пар, например 00:1A:79:12:34:56)."},
+    "hi":{"magTab":"MAG पोर्टल","portal":"पोर्टल का पता","mac":"MAC पता","needMag":"पोर्टल का पता और MAC पता लिखें (छह जोड़े, जैसे 00:1A:79:12:34:56)।"},
+    "ja":{"magTab":"MAG ポータル","portal":"ポータルのアドレス","mac":"MAC アドレス","needMag":"ポータルのアドレスと MAC アドレス（00:1A:79:12:34:56 のような 6 組）を入力してください。"},
+    "ko":{"magTab":"MAG 포털","portal":"포털 주소","mac":"MAC 주소","needMag":"포털 주소와 MAC 주소(00:1A:79:12:34:56처럼 여섯 쌍)를 입력하세요."},
+    "he":{"magTab":"פורטל MAG","portal":"כתובת הפורטל","mac":"כתובת MAC","needMag":"יש להזין את כתובת הפורטל ואת כתובת ה-MAC (שישה זוגות, כמו 00:1A:79:12:34:56)."},
+    "ar":{"magTab":"بوابة MAG","portal":"عنوان البوابة","mac":"عنوان MAC","needMag":"أدخل عنوان البوابة وعنوان MAC (ستة أزواج، مثل 00:1A:79:12:34:56)."},
+    "zh":{"magTab":"MAG 门户","portal":"门户地址","mac":"MAC 地址","needMag":"请输入门户地址和 MAC 地址（六组，例如 00:1A:79:12:34:56）。"},
+    "tr":{"magTab":"MAG portalı","portal":"Portal adresi","mac":"MAC adresi","needMag":"Portal adresini ve MAC adresini girin (altı çift, örneğin 00:1A:79:12:34:56)."},
+    "fi":{"magTab":"MAG-portaali","portal":"Portaalin osoite","mac":"MAC-osoite","needMag":"Kirjoita portaalin osoite ja MAC-osoite (kuusi paria, kuten 00:1A:79:12:34:56)."}};
+  for (var mc in MAGW) if (LANG[mc]) for (var mk in MAGW[mc]) LANG[mc][mk] = MAGW[mc][mk];
   var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en']);
   for (var li = 0; li < langs.length; li++) {
     var code = String(langs[li]).slice(0, 2).toLowerCase();
@@ -273,6 +302,7 @@
   put('t-opt1', 'optional'); put('t-opt2', 'optional'); put('t-host', 'host'); put('t-user', 'user');
   put('t-pass', 'pass'); put('t-name', 'name'); put('send', 'send'); put('t-dead', 'dead');
   put('t-file', 'plFile');
+  put('tab-mag', 'magTab'); put('t-portal', 'portal'); put('t-mac', 'mac');
   document.title = 'AquaPlay — ' + WORDS.title;
 
   /* ---- crypto, both ways ----
@@ -320,6 +350,32 @@
     });
   }
 
+  /* A backup in parts, as js/pair.js cuts and joins them: the JSON's bytes
+     in 1800-byte pieces, each base64url in {v:1, kind:'part', id, i, n, d},
+     at most forty. */
+  var PART_BYTES = 1800, PART_MAX = 40;
+  function splitParts(obj) {
+    var bytes = new TextEncoder().encode(JSON.stringify(obj));
+    var id = b64url(window.crypto.getRandomValues(new Uint8Array(9))), n = Math.max(1, Math.ceil(bytes.length / PART_BYTES)), out = [];
+    for (var i = 0; i < n; i++) out.push({ v: 1, kind: 'part', id: id, i: i, n: n, d: b64url(bytes.subarray(i * PART_BYTES, (i + 1) * PART_BYTES)) });
+    return out;
+  }
+  function partJoiner() {
+    var sets = {};
+    return { add: function (o) {
+      if (!o || o.kind !== 'part' || typeof o.id !== 'string' || typeof o.d !== 'string' || !(o.n >= 1 && o.n <= PART_MAX) || !(o.i >= 0 && o.i < o.n)) return null;
+      var s = sets[o.id] || (sets[o.id] = { n: o.n, got: 0, d: [] });
+      if (s.n !== o.n || s.d[o.i] != null) return null;
+      s.d[o.i] = o.d; s.got++;
+      if (s.got < s.n) return null;
+      var chunks = s.d.map(unb64url), size = 0, at = 0;
+      chunks.forEach(function (c) { size += c.length; });
+      var all = new Uint8Array(size);
+      chunks.forEach(function (c) { all.set(c, at); at += c.length; });
+      try { return JSON.parse(new TextDecoder().decode(all)); } catch (e) { return null; }
+    } };
+  }
+
   /* localStorage: what a first television sent, held here for the short walk
      to the second one. Nothing else on this page is kept anywhere. */
   var HOLD_KEY = 'aquaplayBackupHold';
@@ -357,7 +413,7 @@
      Only a code that is this page's, carrying a television's #b=, #x= or #r=,
      is taken, and only its part after the '#' — which this page then reads
      as if it had been opened with it (the hashchange above starts it over). */
-  var OUR_CODE = /^https:\/\/(?:aquaplayiptv\.github\.io\/|dolev24\.github\.io\/aquaplay-iptv\/pair\.html)(#(?:b|x|r|s)=[A-Za-z0-9_-]{16,64}\.[A-Za-z0-9_-]{43})$/i;
+  var OUR_CODE = /^https:\/\/(?:aquaplayiptv\.github\.io\/|dolev24\.github\.io\/aquaplay-iptv\/pair\.html)(#(?:b|x|r|s)=[A-Za-z0-9_-]{16,64}\.[A-Za-z0-9_-]{43}(?:&[a-z]=1)*)$/i;
   var scanStream = null, scanTimer = null;
 
   function offerScan(labelKey) {
@@ -434,18 +490,29 @@
       fetch(RELAY + btopic + '/json?poll=1&since=all', { cache: 'no-store', referrerPolicy: 'no-referrer' }).then(function (r) {
         return r.text();
       }).then(function (text) {
-        var lines = text.split('\n'), found = null, i;
+        var lines = text.split('\n'), found = [], i;
         for (i = 0; i < lines.length; i++) {
           if (!lines[i]) continue;
           var ev = null; try { ev = JSON.parse(lines[i]); } catch (e) {}
-          if (ev && ev.event === 'message' && ev.message) found = ev.message;
+          if (ev && ev.event === 'message' && ev.message) found.push(ev.message);
         }
-        if (!found) {
+        if (!found.length) {
           if (tries < 5) { setTimeout(function () { fetchBackup(tries + 1); }, 1500); return; }
           setB(WORDS.backupNotFound);
           return;
         }
-        unlock(found, bkey, 'aquaplay2').then(function (obj) {
+        /* Every message on the channel: one backup, or its parts (a TV
+           with several profiles sends more than one message holds). */
+        Promise.all(found.map(function (m) { return unlock(m, bkey, 'aquaplay2').then(null, function () { return null; }); })).then(function (objs) {
+          var whole = null, joiner = partJoiner();
+          objs.forEach(function (o) {
+            if (!o || whole) return;
+            if (o.kind === 'part') { var j = joiner.add(o); if (j) whole = j; }
+            else if (o.kind === 'backup') whole = o;
+          });
+          if (!whole) throw new Error('incomplete');
+          return whole;
+        }).then(function (obj) {
           holdBackup(obj);
           $('b-note').hidden = false; $('b-note').textContent = WORDS.backupNote;
           setB(WORDS.backupGot, 'ok');
@@ -455,7 +522,7 @@
           save.onclick = function () { saveFile(obj); setB(WORDS.saved, 'ok'); };
           offerScan('scanNext');
         }, function () {
-          if (tries < 2) { setTimeout(function () { fetchBackup(tries + 1); }, 1000); return; }
+          if (tries < 5) { setTimeout(function () { fetchBackup(tries + 1); }, 1500); return; }
           setB(WORDS.backupNotFound);
         });
       }, function () {
@@ -471,6 +538,10 @@
      typed here; this page's only job is to hand back what #b= left in
      localStorage, encrypted for this new code instead of the old one. */
   var restoreHash = /[#&]x=([A-Za-z0-9_-]{16,64})\.([A-Za-z0-9_-]{43})(?:&|$)/.exec(location.hash);
+  /* A TV from 1.0.51 joins a backup sent in parts (&p=1); an older one gets
+     one message, as it always did: favourites and channel numbers left out
+     when the whole is too big. */
+  var joinsParts = /[#&]p=1(?:&|$)/.test(location.hash);
   if (restoreHash) {
     $('restore').hidden = false;
     $('t-title').textContent = WORDS.sendTitle;
@@ -510,25 +581,36 @@
     };
     if (!held) { rstatus.textContent = WORDS.sendNothing; offerScan('scanFirst'); }
     else showHeld();
-    /* One relay message holds about 4 KB: a file made on a PC can be more,
-       and loses its favourites and channel numbers before it is refused —
-       the playlists are the part nobody wants to type again. */
+    /* One relay message holds about 4 KB: more than that goes in parts
+       (splitParts, the TV's js/pair.js joins them), so nothing is left out —
+       up to forty parts, past which it is refused. */
     function locked(obj) {
       return lock(obj, xkey, 'aquaplay2').then(function (body) {
-        if (body.length <= 4000) return body;
-        var lean = JSON.parse(JSON.stringify(obj));
-        (lean.profiles || []).forEach(function (p) { delete p.fav; delete p.num; });
-        return lock(lean, xkey, 'aquaplay2').then(function (b2) {
-          if (b2.length > 4000) throw new Error(WORDS.fileTooBig);
-          return b2;
-        });
+        if (body.length <= 4000) return [body];
+        if (!joinsParts) {
+          var lean = JSON.parse(JSON.stringify(obj));
+          (lean.profiles || []).forEach(function (p) { delete p.fav; delete p.num; });
+          return lock(lean, xkey, 'aquaplay2').then(function (b2) {
+            if (b2.length > 4000) throw new Error(WORDS.fileTooBig);
+            return [b2];
+          });
+        }
+        var parts = splitParts(obj);
+        if (parts.length > PART_MAX) throw new Error(WORDS.fileTooBig);
+        return Promise.all(parts.map(function (p) { return lock(p, xkey, 'aquaplay2'); }));
+      });
+    }
+    function postAll(bodies, i) {
+      if (i >= bodies.length) return Promise.resolve({ ok: true });
+      return fetch(RELAY + xtopic, { method: 'POST', body: bodies[i], cache: 'no-store', referrerPolicy: 'no-referrer' }).then(function (r) {
+        return r.ok ? postAll(bodies, i + 1) : r;
       });
     }
     rbtn.onclick = function () {
       rbtn.disabled = true; rbtn.textContent = WORDS.sending;
       rstatus.textContent = ''; rstatus.className = 'msg';
-      locked(held.backup).then(function (body) {
-        return fetch(RELAY + xtopic, { method: 'POST', body: body, cache: 'no-store', referrerPolicy: 'no-referrer' });
+      locked(held.backup).then(function (bodies) {
+        return postAll(bodies, 0);
       }).then(function (r) {
         if (!r.ok) throw new Error(WORDS.relayFail);
         rstatus.textContent = WORDS.sent; rstatus.className = 'msg ok';
@@ -629,6 +711,8 @@
      then, and only then, another can follow from here. An older TV would
      never answer a second one. */
   var more = /[#&]m=1(?:&|$)/.test(location.hash);
+  /* The MAG tab only for a TV that opens MAG portals (&g=1, 1.0.51). */
+  $('tab-mag').hidden = !/[#&]g=1(?:&|$)/.test(location.hash);
   put('another', 'another');
   $('form').hidden = false;
   put('note', 'noteRelay');
@@ -641,12 +725,15 @@
     type = t;
     $('tab-m3u').setAttribute('aria-selected', String(t === 'm3u'));
     $('tab-xtream').setAttribute('aria-selected', String(t === 'xtream'));
+    $('tab-mag').setAttribute('aria-selected', String(t === 'mag'));
+    $('f-mag').hidden = t !== 'mag';
     $('f-m3u').hidden = t !== 'm3u';
     $('f-xtream').hidden = t !== 'xtream';
     msg('');
   }
   $('tab-m3u').onclick = function () { setType('m3u'); };
   $('tab-xtream').onclick = function () { setType('xtream'); };
+  $('tab-mag').onclick = function () { setType('mag'); };
 
   function msg(text, ok) { $('msg').textContent = text || ''; $('msg').className = 'msg' + (ok ? ' ok' : ''); }
   /* Trimmed, and without the characters nobody can see (cleanPaste). */
@@ -724,6 +811,14 @@
       var h = labelled(list).host;
       return { value: unquote(h || list[0]) };
     }
+    if (id === 'g-portal') {
+      var pu = firstUrl(all);
+      return { value: pu || unquote(labelled(list).host || list[0]) };
+    }
+    if (id === 'g-mac') {
+      var mm = /([0-9a-f]{2}[:\-]){5}[0-9a-f]{2}/i.exec(all);
+      return { value: mm ? mm[0].replace(/-/g, ':').toUpperCase() : unquote(list[0]) };
+    }
     if (id === 'x-user' || id === 'x-pass') {
       var key = id === 'x-user' ? 'user' : 'pass', l = labelled(list);
       if (l[key]) return { value: l[key] };
@@ -731,7 +826,7 @@
     }
     return { value: list.join(' ') };
   }
-  ['m-url', 'm-epg', 'x-host', 'x-user', 'x-pass', 'name'].forEach(function (id) {
+  ['m-url', 'm-epg', 'x-host', 'x-user', 'x-pass', 'g-portal', 'g-mac', 'name'].forEach(function (id) {
     var box = $(id);
     box.addEventListener('paste', function (ev) {
       var data = ev.clipboardData || window.clipboardData;
@@ -769,6 +864,12 @@
       if (!url) return { error: WORDS.needUrl };
       if (!/^https?:\/\//i.test(url)) return { error: WORDS.badUrl };
       return { v: 1, type: 'm3u', name: name, url: url, epg: val('m-epg') };
+    }
+    if (type === 'mag') {
+      var portal = val('g-portal'), hex = val('g-mac').replace(/[^0-9a-fA-F]/g, '').toUpperCase();
+      if (!portal || hex.length !== 12) return { error: WORDS.needMag };
+      if (!/^https?:\/\//i.test(portal)) portal = 'http://' + portal;
+      return { v: 1, type: 'stalker', name: name, portal: portal, mac: hex.match(/../g).join(':') };
     }
     var host = val('x-host'), user = val('x-user'), pass = val('x-pass');
     if (!host || !user || !pass) return { error: WORDS.needXt };
