@@ -49,6 +49,7 @@
   .card{ background:var(--raised); border:1px solid var(--line); border-radius:10px; padding:20px 22px; }
   .card h2{ margin-top:0; }
   .card h3{ font-size:15px; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin:22px 0 8px; }
+  .new{ display:inline-block; font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 7px; margin-left:4px; vertical-align:2px; line-height:1.6; }
   .price{ color:var(--dim); font-size:15px; margin:-4px 0 14px; }
 </style>
 </head>
@@ -56,7 +57,7 @@
 <main>
 
   <h1>Free and Premium</h1>
-  <p class="sub">AquaPlay IPTV for Android TV and Google TV · version 1.0.51</p>
+  <p class="sub">AquaPlay IPTV for Android TV and Google TV · version 1.0.52 · <span class="new">New</span> marks what 1.0.52 added</p>
 
   <div class="lead">
     <p><strong>Everyday watching with one playlist is free and complete.</strong> Premium adds the power and the convenience: one Premium unlocks everything below, with a 7-day free trial. On a Samsung TV, AquaPlay is free with everything included.</p>
@@ -70,20 +71,29 @@
       <li>One playlist: M3U, Xtream Codes or MAG/Stalker portal</li>
       <li>Add it from your phone by scanning a QR code, or type it in with the remote</li>
       <li>Reload the playlist, and clear cached data for a fresh download</li>
+      <li>Slow playlist servers get more time, and servers that only answer IPTV players load too <span class="new">New</span></li>
       <li>Clear messages when something fails, saying what went wrong and what to do</li>
     </ul>
     <h3>Live TV</h3>
     <ul>
       <li>Channel list with groups, search, favourites and Recently watched</li>
+      <li>Favourites in your own order, and remove channels from Recently watched or clear it <span class="new">New</span></li>
       <li>Sort channels (provider order, by number, A to Z) and sort groups</li>
       <li>Favourite groups, pin categories to the top, and set the group order</li>
       <li>Hide channels and groups you don't watch, and hide empty groups</li>
       <li>Channel logos, channel numbers in the list, alternating row colours</li>
+      <li>More channel logos, including logos from the guide <span class="new">New</span></li>
+      <li>Three lines of programme description under the channel name <span class="new">New</span></li>
       <li>Type a channel number to jump to it; 0 for the last channel</li>
-      <li>Channel up/down while watching full screen, with your choice of which way Up goes</li>
-      <li>Resume the last channel when the app opens, in the panel or full screen</li>
+      <li>CH+ and CH− change channel on the list too, and the list comes back on the group you started from <span class="new">New</span></li>
+      <li>Left and right scroll the list a page at a time (a setting) <span class="new">New</span></li>
+      <li>Back goes to full screen from any screen, and holding Back exits (a setting) <span class="new">New</span></li>
+      <li>Resume the last channel when the app opens</li>
       <li>Hold OK for a menu while watching: audio, subtitles, Start over, schedule, catch-up guide, reload channel</li>
+      <li>Hold OK on the list for the channel's schedule, and in the Groups window for Go to letter <span class="new">New</span></li>
       <li>Reconnects a dropped stream and reloads a frozen channel by itself</li>
+      <li>A film or episode whose connection drops carries on where it stopped <span class="new">New</span></li>
+      <li>What is playing carries on behind Settings <span class="new">New</span></li>
       <li>Data saver: holds channels that come in several qualities to a lower one</li>
     </ul>
     <h3>TV guide and catch-up</h3>
@@ -91,8 +101,11 @@
       <li>One guide (EPG) of your own, or the one from your playlist, refreshed daily</li>
       <li>Now and next on the info bar, the channel's schedule beside the preview, and the full guide grid</li>
       <li>Programme descriptions with pictures, adjustable size and auto-scrolling</li>
+      <li>Longer programme descriptions, and the guide grid follows Large text <span class="new">New</span></li>
       <li>TV Catalogue for today and yesterday</li>
       <li>Catch-up for the last day: catch-up browser, Start over, rewind live TV</li>
+      <li>Catch-up shows the programme you wind to and how many days your provider keeps <span class="new">New</span></li>
+      <li>Catch-up works with more playlist formats, and Flussonic catch-up carries on into the next programme <span class="new">New</span></li>
       <li>Catch-up channels marked with a clock</li>
       <li>Guide time offset, for a guide whose times are wrong</li>
     </ul>
@@ -102,7 +115,6 @@
       <li>Continue watching: resume a film or episode where you stopped</li>
       <li>Episodes and seasons, with watched marks; mark watched or not watched; hide watched</li>
       <li>Up next: the next episode starts by itself, with a countdown you can set</li>
-      <li>Skip intros and credits, where TheIntroDB knows them (experimental)</li>
       <li>Sync what you watch to your Simkl account</li>
       <li>Hide films and series, and show or hide categories</li>
       <li>Poster size, poster quality, or plain tiles with no posters</li>
@@ -113,21 +125,23 @@
     <h3>Playback and subtitles</h3>
     <ul>
       <li>Choice of audio and subtitle track, picture size, buffer and stream format</li>
-      <li>Preferred subtitle language, and subtitles turned on by themselves when the sound is in another language</li>
+      <li>Preferred subtitle language</li>
+      <li>Captions in the stream (CC), and subtitles named by their language more often <span class="new">New</span></li>
       <li>Subtitle sync</li>
-      <li>Basic subtitle styles: size, 4 colours, dark box or outline, 3 heights</li>
+      <li>Subtitle size and height, in white</li>
       <li>Play/Pause goes back to the picture from any screen</li>
       <li>Screensaver, so a still picture doesn't burn in</li>
     </ul>
     <h3>Look and controls</h3>
     <ul>
       <li>Aqua theme, text size, and several channel screen layouts</li>
-      <li>Clock on screen while watching, its position and format; date format; info bar duration</li>
+      <li>Clock and date format over the channel list; info bar duration</li>
       <li>Choose the start screen: Live TV or Movies and Series</li>
-      <li>16 languages, including Hebrew and Arabic (right to left)</li>
+      <li>17 languages, including Hebrew and Arabic (right to left), now with Vietnamese <span class="new">New</span></li>
       <li>Works with the remote alone: arrows, OK and Back do everything</li>
       <li>Settings pages with search</li>
-      <li>Share my settings with someone helping you (no passwords or addresses included)</li>
+      <li>Share my settings with someone helping you, now as a shorter link (no passwords or addresses included)</li>
+      <li>Crash reports and Diagnostics that say more, for faster help, and the AquaPlay Discord in Settings <span class="new">New</span></li>
       <li>7-day free trial of every Premium feature</li>
     </ul>
   </section>
@@ -137,19 +151,25 @@
     <p class="price">$5 a month, $10 a year, or $25 once, through Google Play</p>
     <ul>
       <li>More than one playlist, and sending a playlist to another TV</li>
-      <li>Catch-up further back than one day (as far back as your provider keeps)</li>
+      <li>Catch-up further back than one day: up to 14 days, if your provider keeps them</li>
       <li>TV Catalogue beyond today and yesterday, and programme reminders</li>
       <li>More than one guide, read together</li>
-      <li>Multi-view: up to four channels at once</li>
+      <li>Multi-view: up to four channels at once, with a warning when your playlist allows fewer streams</li>
       <li>Recording, including scheduling a programme from the guide</li>
       <li>Profiles, each with their own favourites and history</li>
       <li>Parental PIN, locked channels and locked groups, and adult channels hidden behind a PIN</li>
       <li>Your own channel numbers, moving channels, and custom remote buttons</li>
       <li>Your own channel groups: add channels, rename and delete groups</li>
+      <li>Channel zapping with Up and Down while watching full screen <span class="new">New</span></li>
+      <li>Resume the last channel straight in full screen <span class="new">New</span></li>
+      <li>The clock while watching full screen <span class="new">New</span></li>
+      <li>Skip intros and credits, where TheIntroDB knows them (experimental) <span class="new">New</span></li>
+      <li>Audio boost for quiet channels and films (Android TV only) <span class="new">New</span></li>
       <li>Sleep timer and stream delay warning</li>
       <li>OLED and Custom themes (accent colours, backgrounds, brightness)</li>
+      <li>Subtitles turned on by themselves when the sound is in another language <span class="new">New</span></li>
       <li>Subtitles found online (OpenSubtitles) and loaded automatically</li>
-      <li>More subtitle styles (12 more colours, any height, box and outline together, opacity, regular weight) and subtitles sent from your phone</li>
+      <li>The subtitle look: 15 more colours, dark box, outline, both together, box opacity, bold or regular, and subtitles sent from your phone</li>
       <li>Backup and restore, to your phone or a file</li>
     </ul>
   </section>
