@@ -44,7 +44,7 @@
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var LANGS = { en: 'English', es: 'Spanish', fr: 'French', de: 'German', pt: 'Portuguese', it: 'Italian', pl: 'Polish',
-                ru: 'Russian', hi: 'Hindi', ja: 'Japanese', ko: 'Korean', he: 'Hebrew', ar: 'Arabic', zh: 'Chinese', tr: 'Turkish', fi: 'Finnish' };
+                ru: 'Russian', hi: 'Hindi', ja: 'Japanese', ko: 'Korean', he: 'Hebrew', ar: 'Arabic', zh: 'Chinese', tr: 'Turkish', fi: 'Finnish', vi: 'Vietnamese' };
   var PREMIUM = { off: 'Everything included (no Premium on this TV)', owned: 'Premium', trial: 'Free trial',
                   ended: 'Trial ended (free)', free: 'Free', store: 'Free (installed outside Google Play)', pc: 'Everything included (PC)' };
   /* From 1.0.52 the link is shorter: #z=, the LZ below (the app's
@@ -83,7 +83,7 @@
      not here is sent by name), x's fields by letter, and the words as codes.
      the app (settings.js) has the same tables: keep them in step. */
   var HELP_KEYS = ["epg","progDesc","descSize","descScroll","descTwoLines","guideRows","listNumbers","besideRight","scheduleKey","scheduleRev","okTwice","colourOld","colourRev","posterSize","posters","upNext","upNextCount","posterQuality","vodTogether","skipIntros","skipIntrosRev","subsAuto","subsMode","subLang","epgHours","epgHoursRev","catchupHours","catchupRev","hideEmptyGroups","startupPlayLast","startupFullscreen","sortBy","groupSort","dateFormat","guideView","pictureSize","maxQuality","subSize","subColor","subBack","subPos","subOpacity","subBold","epgOffset","clock24","fsClock","guideSize","guideCustom","fsClockPos","autoReconnect","freezeReload","hlsEngine","theme","customTheme","textSize","lang","arrowZap","lrPages","backToFull","audioBoost","upArrow","altRows","showLogos","startGroup","groupsRail","keys","dpadMenuRev","dpad","dpadRev","parental","pin","streamFormat","bufferSize","filmPlayer","playerEngine","osdSeconds","osdNumber","progPics","homeScreen","layout","homeLast","homeSplit","driftWarn","driftWarnRev","updateCheck","screensaver","mvLayout","mvShape2","mvShape3","volPos"];
-  var HELP_X = { ext: 'e', fmt: 't', tsOk: 'K', tsAsk: 'a', exp: 'x', cons: 'o', mbit: 'm', free: 'f', heap: 'h', up: 'u', errs: 'r', gcov: 'c', logos: 'l', guides: 'g', tz: 'z', net: 'n', link: 'k', vod: 'v', viewers: 'w', simkl: 's', ts: 'p', low: 'L', apps: 'A', hist: 'H' };
+  var HELP_X = { ext: 'e', fmt: 't', tsOk: 'K', tsAsk: 'a', exp: 'x', cons: 'o', mbit: 'm', free: 'f', heap: 'h', up: 'u', errs: 'r', gcov: 'c', logos: 'l', guides: 'g', tz: 'z', net: 'n', link: 'k', vod: 'v', viewers: 'w', simkl: 's', ts: 'p', low: 'L', apps: 'A', hist: 'H', perr: 'P', portal: 'q', doing: 'D', ans: 'S' };
   /* The steps of starting (crash.js, Crash.step), by number in a link. Only
      ever added to at the end. */
   var HELP_STEPS = ['reading the saved playlist', 'reading the playlist', 'playlist ready', 'reading the saved guide', 'guide ready', 'downloading the guide', 'guide read', 'first play'];
@@ -197,6 +197,13 @@
     if (x.tz != null) more.push(['Time zone', 'UTC' + (x.tz >= 0 ? '+' : '-') + Math.floor(Math.abs(x.tz) / 60) + (Math.abs(x.tz) % 60 ? ':' + ('0' + Math.abs(x.tz) % 60).slice(-2) : '')]);
     if (x.viewers > 1 || x.simkl) more.push(['Viewers', (x.viewers || 1) + (x.simkl ? ', Simkl signed in' : '')]);
     if (x.errs && x.errs.length) more.push(['Last errors', x.errs.join(' | ')]);
+    /* From 1.0.53: the last player errors with what was playing, a MAG
+       portal's own answer, and what the app was in the middle of. */
+    var since = function (s) { s = +s || 0; return s < 90 ? s + ' s ago' : s < 5400 ? Math.round(s / 60) + ' min ago' : Math.round(s / 3600) + ' h ago'; };
+    if (Array.isArray(x.perr) && x.perr.length) more.push(['Player errors', x.perr.map(function (e) { return since(e[0]) + ', ' + (e[1] || '?') + ': ' + e[2]; }).join(' | ')]);
+    if (x.portal) more.push(['Portal answered', x.portal]);
+    if (x.ans) more.push(['Stream server answered', x.ans]);
+    if (x.doing) more.push(['Busy with', x.doing]);
     Array.prototype.splice.apply(rows, [rows.length - 1, 0].concat(more));
   }
   var text = ['AquaPlay settings'];
@@ -209,7 +216,8 @@
   (Array.isArray(hx.hist) ? hx.hist : []).forEach(function (h) {
     var step = typeof h[4] === 'number' ? (HELP_STEPS[h[4]] || 'step ' + h[4]) : (h[4] || '');
     happened.push(ago(h[0]) + ' before this: ' + (ENDED[h[1]] || h[1]) + ' after ' + span(h[2]) +
-      ((h[1] === 'c' || h[1] === 'e' || h[1] === 't') && step ? ', its last step ' + step : '') + (h[3] ? ', lowest free memory ' + h[3] + ' MB' : ''));
+      ((h[1] === 'c' || h[1] === 'e' || h[1] === 't') && step ? ', its last step ' + step + (h[5] ? ' at ' + span(h[5]) : '') + (h[6] ? ' with ' + h[6] + ' MB free' : '') : '') +
+      (h[3] ? ', lowest free memory ' + h[3] + ' MB' : '') + (h[7] && h[1] !== 'x' ? ', at the end it was ' + h[7] : ''));
   });
   if (hx.apps) happened.push('Other apps in memory as AquaPlay opened: ' + hx.apps.join(', '));
   if (hx.low) happened.push('Lowest free memory on the TV this session: ' + hx.low + ' MB');
@@ -241,6 +249,17 @@
     if (xx.mbit && xx.mbit < 10) checks.push('The line measured ' + xx.mbit + ' Mbit/s: under about 10 can be too little for HD.');
     if (stalls.length >= 2 && !checks.length) checks.push('It buffered ' + stalls.length + ' times this session; the stream and the line look fine, so the provider is the next thing to ask.');
   }
+  var am = /^HTTP (\d+)/.exec(xx.ans || '');
+  if (am) {
+    var ac = +am[1];
+    if (ac === 404) checks.push('The stream\'s server says this link does not exist (HTTP 404): the playlist is out of date or the channel was removed. Reload the playlist, or ask the provider.');
+    else if (ac === 401 || ac === 403) checks.push('The stream\'s server refused it (HTTP ' + ac + '): usually the account (expired, too many connections, or blocked from this network). Ask the provider.');
+    else if (ac === 456 || ac === 458 || ac === 429) checks.push('The stream\'s server says the limit is reached (HTTP ' + ac + '): close it on other devices and try again.');
+    else if (ac >= 500) checks.push('The stream\'s server has a fault of its own (HTTP ' + ac + '): the provider\'s side, try again later.');
+    else if (ac >= 200 && ac < 300) checks.push('The stream\'s server answered normally (HTTP ' + ac + ') although the player could not play it: the format or the Stream format setting is the next thing to look at.');
+  } else if (/^no (connection|answer)/.test(xx.ans || '')) checks.push('The stream\'s server could not be reached from this TV (' + xx.ans.replace(/,.*/, '') + '): the server is down, or the network blocks it.');
+  if (xx.portal) checks.push(/limit/i.test(xx.portal) ? 'The portal answered "' + xx.portal + '": the account\'s connection limit is reached. Close it on other devices and try again.'
+    : 'The portal refused to give a stream (its answer: "' + xx.portal + '"): that is the provider\'s side, worth asking them about.');
   if (d.guide && xx.gcov && !xx.gcov[0]) checks.push('The guide matched none of the live channels: another guide address may fit (Settings, Guide address).');
   if (xx.logos && xx.logos[1] && !xx.logos[0]) checks.push('No channel has a logo: the playlist names none that AquaPlay can read, and the guide has none for them.');
   if (xx.free && xx.free < 150) checks.push('The TV has little memory free (' + xx.free + ' MB): restarting the TV may help.');
