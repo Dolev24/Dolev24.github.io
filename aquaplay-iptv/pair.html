@@ -195,6 +195,10 @@
         <input type="text" id="x-user" dir="ltr" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off"></label>
       <label><span id="t-pass">Password</span>
         <input type="text" id="x-pass" dir="ltr" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off"></label>
+      <!-- A guide address of its own (the owner, 12 Nov 2026): empty means the
+           server's own. A TV before 1.0.53 leaves it out. -->
+      <label><span><span id="t-epg2">Guide (EPG) URL</span> <em id="t-opt3">optional</em></span>
+        <input type="url" id="x-epg" dir="ltr" inputmode="url" autocapitalize="off" spellcheck="false" autocorrect="off" autocomplete="off"></label>
     </div>
 
     <!-- A MAG portal and the MAC it knows (P4, 25 Oct 2026): the TV checks
@@ -329,7 +333,7 @@
 
   var $ = function (id) { return document.getElementById(id); };
   var put = function (id, key) { $(id).textContent = WORDS[key]; };
-  put('t-title', 'title'); put('t-url', 'url'); put('t-epg', 'epg');
+  put('t-title', 'title'); put('t-url', 'url'); put('t-epg', 'epg'); put('t-epg2', 'epg'); put('t-opt3', 'optional');
   put('t-opt1', 'optional'); put('t-opt2', 'optional'); put('t-host', 'host'); put('t-user', 'user');
   put('t-pass', 'pass'); put('t-name', 'name'); put('send', 'send'); put('t-dead', 'dead');
   put('t-file', 'plFile');
@@ -817,7 +821,8 @@
   var LABELS = {
     host: /^(?:url|host|server|portal|dns|address|m3u(?:\s*(?:url|link))?|link|xtream(?:\s*(?:url|host))?)\s*[:=]\s*/i,
     user: /^(?:user\s*name|username|user|login|user\s*id)\s*[:=]\s*/i,
-    pass: /^(?:pass\s*word|password|pass|pwd|pw)\s*[:=]\s*/i
+    pass: /^(?:pass\s*word|password|pass|pwd|pw)\s*[:=]\s*/i,
+    epg: /^(?:epg|xmltv|tv\s*guide|guide)(?:\s*(?:url|link|address))?\s*[:=]\s*/i
   };
   function lines(text) {
     return String(text).replace(INVISIBLE, '').replace(/ /g, ' ').split(/\r\n|\r|\n/)
@@ -914,12 +919,12 @@
     if (xtreamBox) {
       var found = labelled(list), url = firstUrl(all);
       var fromUrl = url ? xtreamFromUrl(url) : null;
-      if (fromUrl) return { fill: fromUrl };
-      if (!found.host && url && (found.user || found.pass)) found.host = url;
+      if (fromUrl) { if (found.epg) fromUrl.epg = found.epg; return { fill: fromUrl }; }
+      if (!found.host && url && url !== found.epg && (found.user || found.pass)) found.host = url;
       var n = (found.host ? 1 : 0) + (found.user ? 1 : 0) + (found.pass ? 1 : 0);
       if (n >= 2) return { fill: found };
     }
-    if (id === 'm-url' || id === 'm-epg' || id === 'x-host') {
+    if (id === 'm-url' || id === 'm-epg' || id === 'x-host' || id === 'x-epg') {
       var u = id === 'm-url' ? playlistUrl(all) : firstUrl(all);
       if (u) return { value: u };
       var h = labelled(list).host;
@@ -952,6 +957,7 @@
       if (out.fill.host) $('x-host').value = out.fill.host;
       if (out.fill.user) $('x-user').value = out.fill.user;
       if (out.fill.pass) $('x-pass').value = out.fill.pass;
+      if (out.fill.epg) $('x-epg').value = out.fill.epg;
       if (id === 'x-host' || id === 'x-user' || id === 'x-pass') return;
     }
     var v = out.fill ? '' : out.value;
@@ -966,7 +972,7 @@
      input event, insertFromPaste): a phone whose keyboard pastes without a
      paste event, or pastes after the page already did, has its paste taken
      out of the box and the cleaned text put in its place. */
-  ['m-url', 'm-epg', 'x-host', 'x-user', 'x-pass', 'g-portal', 'g-mac', 'name'].forEach(function (id) {
+  ['m-url', 'm-epg', 'x-host', 'x-user', 'x-pass', 'x-epg', 'g-portal', 'g-mac', 'name'].forEach(function (id) {
     var box = $(id);
     var last = box.value, mine = null;
     box.addEventListener('paste', function (ev) {
@@ -1053,7 +1059,12 @@
     if (!host || !user || !pass) return { error: WORDS.needXt };
     if (!/^https?:\/\//i.test(host)) host = 'http://' + host;
     if (!whole(host)) return { error: WORDS.urlNone };
-    return { v: 1, type: 'xtream', name: name, host: host, user: user, pass: pass };
+    /* A guide address that is not one is left out, as the TV would. */
+    var xepg = withScheme(address('x-epg'));
+    if (xepg && !whole(xepg)) xepg = '';
+    var xo = { v: 1, type: 'xtream', name: name, host: host, user: user, pass: pass };
+    if (xepg) xo.epg = xepg;
+    return xo;
   }
 
   /* b64url, unb64url and lock are defined once, above, and used by every flow
@@ -1185,7 +1196,7 @@
   }
 
   $('another').onclick = function () {
-    ['name', 'm-url', 'm-epg', 'x-host', 'x-user', 'x-pass'].forEach(function (id) { $(id).value = ''; });
+    ['name', 'm-url', 'm-epg', 'x-host', 'x-user', 'x-pass', 'x-epg'].forEach(function (id) { $(id).value = ''; });
     $('m-file').value = ''; $('file-note').hidden = true;
     $('another').hidden = true; $('tv-answer').hidden = true;
     $('send').disabled = false; put('send', 'send'); msg('');
