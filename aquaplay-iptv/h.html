@@ -83,7 +83,7 @@
      not here is sent by name), x's fields by letter, and the words as codes.
      the app (settings.js) has the same tables: keep them in step. */
   var HELP_KEYS = ["epg","progDesc","descSize","descScroll","descTwoLines","guideRows","listNumbers","besideRight","scheduleKey","scheduleRev","okTwice","colourOld","colourRev","posterSize","posters","upNext","upNextCount","posterQuality","vodTogether","skipIntros","skipIntrosRev","subsAuto","subsMode","subLang","epgHours","epgHoursRev","catchupHours","catchupRev","hideEmptyGroups","startupPlayLast","startupFullscreen","sortBy","groupSort","dateFormat","guideView","pictureSize","maxQuality","subSize","subColor","subBack","subPos","subOpacity","subBold","epgOffset","clock24","fsClock","guideSize","guideCustom","fsClockPos","autoReconnect","freezeReload","hlsEngine","theme","customTheme","textSize","lang","arrowZap","lrPages","backToFull","audioBoost","upArrow","altRows","showLogos","startGroup","groupsRail","keys","dpadMenuRev","dpad","dpadRev","parental","pin","streamFormat","bufferSize","filmPlayer","playerEngine","osdSeconds","osdNumber","progPics","homeScreen","layout","homeLast","homeSplit","driftWarn","driftWarnRev","updateCheck","screensaver","mvLayout","mvShape2","mvShape3","volPos"];
-  var HELP_X = { ext: 'e', fmt: 't', tsOk: 'K', tsAsk: 'a', exp: 'x', cons: 'o', mbit: 'm', free: 'f', heap: 'h', up: 'u', errs: 'r', gcov: 'c', logos: 'l', guides: 'g', tz: 'z', net: 'n', link: 'k', vod: 'v', viewers: 'w', simkl: 's', ts: 'p', low: 'L', apps: 'A', hist: 'H', perr: 'P', portal: 'q', doing: 'D', ans: 'S' };
+  var HELP_X = { ext: 'e', fmt: 't', tsOk: 'K', tsAsk: 'a', exp: 'x', cons: 'o', mbit: 'm', free: 'f', heap: 'h', up: 'u', errs: 'r', gcov: 'c', logos: 'l', guides: 'g', tz: 'z', net: 'n', link: 'k', vod: 'v', viewers: 'w', simkl: 's', ts: 'p', low: 'L', apps: 'A', hist: 'H', perr: 'P', portal: 'q', doing: 'D', ans: 'S', upd: 'U' };
   /* The steps of starting (crash.js, Crash.step), by number in a link. Only
      ever added to at the end. */
   var HELP_STEPS = ['reading the saved playlist', 'reading the playlist', 'playlist ready', 'reading the saved guide', 'guide ready', 'downloading the guide', 'guide read', 'first play'];
@@ -182,6 +182,7 @@
     if (x.exp || x.cons) more.push(['Account', (x.exp ? 'expires ' + x.exp : 'no expiry given') + (x.cons ? ', ' + x.cons + ' connection(s) allowed' : '')]);
     if (x.vod) more.push(['Films and series', x.vod[0] + ' films, ' + x.vod[1] + ' series']);
     if (x.mbit) more.push(['Line speed', x.mbit + ' Mbit/s (last measured)']);
+    if (x.upd) more.push(['Updates', x.upd]);
     /* From 1.0.50 an Android TV says its connection itself (x.link). */
     var ln = x.link;
     if (ln && ln.type) {
